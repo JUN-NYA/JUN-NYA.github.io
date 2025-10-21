@@ -17,23 +17,25 @@
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
   
-  <title>Aki</title>
+  <title>如何获取大模型API - Aki</title>
 
   
-    <meta name="description" content="分享后端技术、编程和学习经验的个人博客，望共同成长">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Aki">
-<meta property="og:url" content="http://meetaki.com/wiki/index.html">
+    <meta name="description" content="要获取 Google API（以常见的「Google AI 大模型（如 Gemini）API」和「传统 Google 服务（如日历、人脉）API」为例），需根据场景选择流程，以下是清晰的分步指南： 场景一：获取 Google AI 大模型（如 Gemini）的 API Key适合需要调用 Gemini 等 Google 大模型的场景，参考抖音视频（摘要4、5）和官方流程： 步骤 1：准备基础条件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何获取大模型API">
+<meta property="og:url" content="http://meetaki.com/2025/10/18/%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%A4%A7%E6%A8%A1%E5%9E%8BAPI/index.html">
 <meta property="og:site_name" content="Aki">
-<meta property="og:description" content="分享后端技术、编程和学习经验的个人博客，望共同成长">
+<meta property="og:description" content="要获取 Google API（以常见的「Google AI 大模型（如 Gemini）API」和「传统 Google 服务（如日历、人脉）API」为例），需根据场景选择流程，以下是清晰的分步指南： 场景一：获取 Google AI 大模型（如 Gemini）的 API Key适合需要调用 Gemini 等 Google 大模型的场景，参考抖音视频（摘要4、5）和官方流程： 步骤 1：准备基础条件">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-18T13:30:09.000Z">
+<meta property="article:modified_time" content="2025-10-21T14:01:15.118Z">
 <meta property="article:author" content="Aki">
-<meta property="article:tag" content="博客, 技术, 学习, 成长, Aki">
+<meta property="article:tag" content="科技">
 <meta name="twitter:card" content="summary">
   
   
   
-  <meta name="keywords" content="博客, 技术, 学习, 成长, Aki">
+  <meta name="keywords" content="科技">
 
   <!-- feed -->
   
@@ -51,7 +53,7 @@
 </head>
 <body>
 
-<div class="l_body index tech" id="start" layout="index_wiki" ><aside class="l_left"><div class="leftbar-container">
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
 
 
 <header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://meetaki.oss-cn-guangzhou.aliyuncs.com/img1/20251019221556223.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Aki</div><div class="sub normal cap">Learn to code</div><div class="sub hover cap" style="opacity:0"> Code to learn</div></a></div></header>
@@ -60,27 +62,112 @@
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
 
-<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="探索" href="/about/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="currentColor"></circle><path fill="currentColor" d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5" opacity="0.5"></path></svg></a></nav>
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="探索" href="/about/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="currentColor"></circle><path fill="currentColor" d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5" opacity="0.5"></path></svg></a></nav>
 </div>
 <div class="widgets">
 
 
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/bookmark/index.html"><span class="title"><strong>探索</strong><span class="dot"></span>收藏</span></a><a class="item title" href="/explore/index.html"><span class="title"><strong>探索</strong><span class="dot"></span>探索</span></a></div></widget>
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/10/14/elements/"><span class="title">Elements</span></a><a class="item title" href="/2025/09/25/tag-plugins/"><span class="title">Tag Plugins</span></a><a class="item title" href="/2025/09/26/images/"><span class="title">Images</span></a><a class="item title" href="/2025/07/24/markdown/"><span class="title">Markdown Style test</span></a><a class="item title" href="/2013/12/25/gallery-post/"><span class="title">Gallery Post</span></a><a class="item title" href="/2025/10/20/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%B2%BE%E8%AF%BB/"><span class="title">进程同步精读：信号量与PV操作</span></a><a class="item title" href="/2025/10/20/GitHub%E5%85%A5%E9%97%A8/"><span class="title">GitHub入门</span></a><a class="item title" href="/2025/10/18/%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%A4%A7%E6%A8%A1%E5%9E%8BAPI/"><span class="title">如何获取大模型API</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
 
-<header class="header mobile-only"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://meetaki.oss-cn-guangzhou.aliyuncs.com/img1/20251019221556223.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Aki</div><div class="sub normal cap">Learn to code</div><div class="sub hover cap" style="opacity:0"> Code to learn</div></a></div></header>
 
 
 
 
-<div class="navbar top"><nav class="wiki"><a class="active" href="/wiki">所有项目</a></a></nav></div>
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/AI%E4%B8%8E%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/">AI与前沿技术</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/AI%E4%B8%8E%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/AI%E5%B7%A5%E5%85%B7%E8%B5%8B%E8%83%BD/">AI工具赋能</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-18T13:30:09.000Z">2025-10-18</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-10-21T14:01:15.118Z">2025-10-21</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>如何获取大模型API</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>要获取 <strong>Google API</strong>（以常见的「Google AI 大模型（如 Gemini）API」和「传统 Google 服务（如日历、人脉）API」为例），需根据场景选择流程，以下是清晰的分步指南：</p>
+<h3 id="场景一：获取-Google-AI-大模型（如-Gemini）的-API-Key"><a href="#场景一：获取-Google-AI-大模型（如-Gemini）的-API-Key" class="headerlink" title="场景一：获取 Google AI 大模型（如 Gemini）的 API Key"></a>场景一：获取 Google AI 大模型（如 Gemini）的 API Key</h3><p>适合需要调用 Gemini 等 Google 大模型的场景，参考抖音视频（摘要4、5）和官方流程：</p>
+<h4 id="步骤-1：准备基础条件"><a href="#步骤-1：准备基础条件" class="headerlink" title="步骤 1：准备基础条件"></a>步骤 1：准备基础条件</h4><ul>
+<li><strong>科学上网</strong>：Google 服务需科学上网环境（如切换网络区域为美国、新加坡等）。</li>
+<li><strong>Google 账号</strong>：拥有 Google 邮箱（用于登录 Google 平台）。</li>
+</ul>
+<h4 id="步骤-2：访问-Google-AI-Studio"><a href="#步骤-2：访问-Google-AI-Studio" class="headerlink" title="步骤 2：访问 Google AI Studio"></a>步骤 2：访问 Google AI Studio</h4><p>打开 <a target="_blank" rel="noopener" href="https://aistudio.google.com/">Google AI Studio</a>（需科学上网），使用 Google 邮箱登录。</p>
+<h4 id="步骤-3：解决「项目创建」问题（若遇到报错）"><a href="#步骤-3：解决「项目创建」问题（若遇到报错）" class="headerlink" title="步骤 3：解决「项目创建」问题（若遇到报错）"></a>步骤 3：解决「项目创建」问题（若遇到报错）</h4><p>若登录后提示  <strong>“没有项目，无法创建 API Key”</strong> ，需先在 Google Cloud 控制台创建项目：</p>
+<ol>
+<li>打开 <a target="_blank" rel="noopener" href="https://cloud.google.com/">Google Cloud 控制台</a>，点击右上角「控制台」。</li>
+<li>左上角点击「选择项目」→「新建项目」，输入任意项目名称，等待创建完成（通常需 1 - 2 分钟）。</li>
+</ol>
+<h4 id="步骤-4：生成-API-Key"><a href="#步骤-4：生成-API-Key" class="headerlink" title="步骤 4：生成 API Key"></a>步骤 4：生成 API Key</h4><p>回到 Google AI Studio：</p>
+<ol>
+<li>点击右上角「API Keys」。</li>
+<li>此时会显示已创建的项目，点击「创建 API Key」，系统会生成<strong>专属 API 密钥</strong>，复制并妥善保存（后续调用大模型时使用）。</li>
+</ol>
+<h4 id="步骤-5：注意事项"><a href="#步骤-5：注意事项" class="headerlink" title="步骤 5：注意事项"></a>步骤 5：注意事项</h4><ul>
+<li><strong>地区限制</strong>：若提示「地区不可用」，将网络环境切换为<strong>澳大利亚、新加坡、美国</strong>等支持的区域。</li>
+<li><strong>调用限制</strong>：以 Gemini 为例，<strong>单个项目</strong>每天有免费调用次数（如 Gemini 2.5 Pro 每天 100 次，Gemini Flash 每天 250 次）。可通过「<strong>多账号 + 多项目</strong>」提升次数（一个账号创建 2 - 3 个项目，再注册多个 Google 账号）。</li>
+</ul>
+<h3 id="场景二：获取传统-Google-服务（如日历、人脉）的-API"><a href="#场景二：获取传统-Google-服务（如日历、人脉）的-API" class="headerlink" title="场景二：获取传统 Google 服务（如日历、人脉）的 API"></a>场景二：获取传统 Google 服务（如日历、人脉）的 API</h3><p>适合需要调用 Google 日历、人脉等服务 API 的场景，参考 Google 官方文档（摘要1、2、3）：</p>
+<h4 id="步骤-1：访问-Google-API-Console"><a href="#步骤-1：访问-Google-API-Console" class="headerlink" title="步骤 1：访问 Google API Console"></a>步骤 1：访问 Google API Console</h4><p>打开 <a target="_blank" rel="noopener" href="https://console.cloud.google.com/">Google API Console</a>，使用 Google 账号登录。</p>
+<h4 id="步骤-2：创建项目"><a href="#步骤-2：创建项目" class="headerlink" title="步骤 2：创建项目"></a>步骤 2：创建项目</h4><p>点击「选择项目」→「新建项目」，输入项目名称后完成创建。</p>
+<h4 id="步骤-3：启用目标-API"><a href="#步骤-3：启用目标-API" class="headerlink" title="步骤 3：启用目标 API"></a>步骤 3：启用目标 API</h4><p>在「API 库」中搜索需要的 API（如「Google Calendar API」「Google People API」等），点击「启用」。</p>
+<h4 id="步骤-4：创建凭据（区分使用场景）"><a href="#步骤-4：创建凭据（区分使用场景）" class="headerlink" title="步骤 4：创建凭据（区分使用场景）"></a>步骤 4：创建凭据（区分使用场景）</h4><p>Google API 支持<strong>两种凭据类型</strong>，需根据应用是否需要「用户授权访问个人数据」选择：</p>
+<ul>
+<li><p><strong>场景 A：仅调用公共 API（无需用户授权）</strong><br>创建「<strong>API 密钥</strong>」：</p>
+<ol>
+<li>进入「凭据」页面 → 点击「创建凭据」→ 选择「API 密钥」。</li>
+<li>系统生成 API 密钥，直接用于发起 API 请求（如调用公共数据接口）。</li>
+</ol>
+</li>
+<li><p><strong>场景 B：需访问用户个人数据（如读取日历、联系人）</strong><br>创建「<strong>OAuth 2.0 客户端 ID</strong>」：</p>
+<ol>
+<li>进入「凭据」页面 → 点击「创建凭据」→ 选择「OAuth 2.0 客户端 ID」。</li>
+<li>选择应用类型（如「Web 应用」「Android」「iOS」等），填写相关配置（如 Web 应用需填授权回调地址）。</li>
+<li>系统生成 <code>client_id</code> 和 <code>client_secret</code>，后续需通过 <strong>OAuth 2.0 流程</strong>获取「访问令牌」，再用令牌调用 API。</li>
+</ol>
+</li>
+</ul>
+<h4 id="步骤-5：后续使用-API"><a href="#步骤-5：后续使用-API" class="headerlink" title="步骤 5：后续使用 API"></a>步骤 5：后续使用 API</h4><ul>
+<li>若用「API 密钥」：直接将密钥加入请求头或参数（参考对应 API 文档的调用格式）。</li>
+<li>若用「OAuth 2.0 凭据」：需先引导用户完成授权（跳转 Google 授权页面，用户同意后获取「授权码」），再用「授权码」交换「访问令牌」，最终用「访问令牌」调用 API（需参考 OAuth 2.0 官方流程）。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>若需 <strong>Google AI 大模型（如 Gemini）</strong> ：优先走「Google AI Studio」流程，简单高效，适合个人开发者快速获取 API Key。</li>
+<li>若需 <strong>传统 Google 服务（如日历、人脉）</strong> ：走「Google API Console + 凭据创建」流程，需区分“公共访问”或“用户授权访问”场景。</li>
+</ul>
+<p>两种场景都需注意「科学上网」和「Google 账号准备」，部分情况下还需处理“地区限制”和“调用次数”问题～</p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/10/20/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%B2%BE%E8%AF%BB/">进程同步精读：信号量与PV操作</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/10/14/elements/">Elements</a></div></section></div>
+
+
+
+
+
 
 <footer class="page-footer footnote"><hr><div class="text"><p>Aki’s Digital Garden<br>Built with Stellar · CC BY-NC-SA 4.0 · Attribution required</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
-</aside><div class='float-panel blur'>
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%80%EF%BC%9A%E8%8E%B7%E5%8F%96-Google-AI-%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%88%E5%A6%82-Gemini%EF%BC%89%E7%9A%84-API-Key"><span class="toc-text">场景一：获取 Google AI 大模型（如 Gemini）的 API Key</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1%EF%BC%9A%E5%87%86%E5%A4%87%E5%9F%BA%E7%A1%80%E6%9D%A1%E4%BB%B6"><span class="toc-text">步骤 1：准备基础条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2%EF%BC%9A%E8%AE%BF%E9%97%AE-Google-AI-Studio"><span class="toc-text">步骤 2：访问 Google AI Studio</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-3%EF%BC%9A%E8%A7%A3%E5%86%B3%E3%80%8C%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E3%80%8D%E9%97%AE%E9%A2%98%EF%BC%88%E8%8B%A5%E9%81%87%E5%88%B0%E6%8A%A5%E9%94%99%EF%BC%89"><span class="toc-text">步骤 3：解决「项目创建」问题（若遇到报错）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4%EF%BC%9A%E7%94%9F%E6%88%90-API-Key"><span class="toc-text">步骤 4：生成 API Key</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-5%EF%BC%9A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">步骤 5：注意事项</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%8C%EF%BC%9A%E8%8E%B7%E5%8F%96%E4%BC%A0%E7%BB%9F-Google-%E6%9C%8D%E5%8A%A1%EF%BC%88%E5%A6%82%E6%97%A5%E5%8E%86%E3%80%81%E4%BA%BA%E8%84%89%EF%BC%89%E7%9A%84-API"><span class="toc-text">场景二：获取传统 Google 服务（如日历、人脉）的 API</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1%EF%BC%9A%E8%AE%BF%E9%97%AE-Google-API-Console"><span class="toc-text">步骤 1：访问 Google API Console</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2%EF%BC%9A%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">步骤 2：创建项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-3%EF%BC%9A%E5%90%AF%E7%94%A8%E7%9B%AE%E6%A0%87-API"><span class="toc-text">步骤 3：启用目标 API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%87%AD%E6%8D%AE%EF%BC%88%E5%8C%BA%E5%88%86%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%89"><span class="toc-text">步骤 4：创建凭据（区分使用场景）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-5%EF%BC%9A%E5%90%8E%E7%BB%AD%E4%BD%BF%E7%94%A8-API"><span class="toc-text">步骤 5：后续使用 API</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
   </button>
