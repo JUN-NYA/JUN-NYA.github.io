@@ -1,0 +1,931 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.30.0" theme-name="Stellar" theme-version="1.30.0">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>6.5 WWW - Aki</title>
+
+  
+    <meta name="description" content="WWW：HTTP协议、URL、HTML。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.5 WWW">
+<meta property="og:url" content="http://meetaki.com/2025/05/18/CN/6.5%20WWW/index.html">
+<meta property="og:site_name" content="Aki">
+<meta property="og:description" content="WWW：HTTP协议、URL、HTML。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-18T13:30:09.000Z">
+<meta property="article:modified_time" content="2026-05-08T15:14:50.348Z">
+<meta property="article:author" content="Aki">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="学习笔记">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.30.0">
+
+
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/xaoxuu/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/xaoxuu/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/xaoxuu/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/xaoxuu/favicon/site.webmanifest"><link rel="shortcut icon" href="/assets/xaoxuu/favicon/favicon.ico"><meta name="theme-color" content="#f8f8f8"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" media="all" />
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://meetaki.oss-cn-guangzhou.aliyuncs.com/img1/20251019221556223.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Aki</div><div class="sub normal cap">Learn to code</div><div class="sub hover cap" style="opacity:0"> Code to learn</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="探索" href="/about/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="currentColor"></circle><path fill="currentColor" d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5" opacity="0.5"></path></svg></a></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/05/18/mysql/"><span class="title">MySQL</span></a><a class="item title" href="/2025/05/18/JDBC/"><span class="title">JDBC</span></a><a class="item title" href="/2025/05/18/CN/6.5%20WWW/"><span class="title">6.5 WWW</span></a><a class="item title" href="/2025/05/18/CN/6.4%20%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/"><span class="title">6.4 电子邮件</span></a><a class="item title" href="/2025/05/18/CN/6.3%20FTP/"><span class="title">6.3 FTP</span></a><a class="item title" href="/2025/05/18/CN/6.2%20DNS%E7%B3%BB%E7%BB%9F/"><span class="title">6.2 DNS系统</span></a><a class="item title" href="/2025/05/18/CN/6.1%20%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B/"><span class="title">6.1 网络应用模型</span></a><a class="item title" href="/2025/05/18/CN/5.3%20TCP%E5%8D%8F%E8%AE%AE/"><span class="title">5.3 TCP协议</span></a><a class="item title" href="/2025/05/18/CN/5.2%20UDP%E5%8D%8F%E8%AE%AE/"><span class="title">5.2 UDP协议</span></a><a class="item title" href="/2025/05/18/CN/5.1%20%E4%BC%A0%E8%BE%93%E5%B1%82%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1/"><span class="title">5.1 传输层提供的服务</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/408/">408</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/408/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-05-18T13:30:09.000Z">2025-05-18</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-08T15:14:50.348Z">2026-05-08</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>6.5 WWW</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>WWW：HTTP协议、URL、HTML。</p>
+<span id="more"></span>
+
+<h2 id="6-5-WWW"><a href="#6-5-WWW" class="headerlink" title="6.5 WWW"></a>6.5 WWW</h2><h3 id="6-5-1-WWW的概念与组成结构"><a href="#6-5-1-WWW的概念与组成结构" class="headerlink" title="6.5.1 WWW的概念与组成结构"></a>6.5.1 WWW的概念与组成结构</h3><ul>
+<li><strong>万维网（World Wide Web）</strong>：一个大规模的、分布式的、联机式的信息储藏所，简称Web。</li>
+<li><strong>资源</strong>：指互联网上可被访问的任何对象（文件目录、文档、图像、声音等），通过<strong>统一资源定位符（URL）</strong>标识，并通过<strong>超文本传输协议（HTTP）</strong>发给用户。</li>
+<li><strong>超文本标记语言（HTML）</strong>：使网页能够使用超链接方便地链接其他页面，并在屏幕上显示。</li>
+</ul>
+<h4 id="万维网的内核三标准"><a href="#万维网的内核三标准" class="headerlink" title="万维网的内核三标准"></a>万维网的内核三标准</h4><table>
+<thead>
+<tr>
+<th>标准</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>统一资源定位符（URL）</strong></td>
+<td>标志万维网上的各种文档，使每个文档在整个互联网范围内具有唯一的标识符</td>
+</tr>
+<tr>
+<td><strong>超文本传送协议（HTTP）</strong></td>
+<td>应用层协议，使用TCP连接进行可靠传送，规范万维网客户与服务器间的交互</td>
+</tr>
+<tr>
+<td><strong>超文本标记语言（HTML）</strong></td>
+<td>使网页设计者可用链接从本页面链接到互联网上任何一个网页，并在主机屏幕上显示</td>
+</tr>
+</tbody></table>
+<h4 id="工作方式"><a href="#工作方式" class="headerlink" title="工作方式"></a>工作方式</h4><ul>
+<li><strong>客户-服务器方式</strong>：浏览器（用户主机上的客户程序）向服务器程序发出请求，服务器返回所请求的万维网文档。在一个客户程序主窗口上显示出的文档称为<strong>页面（page）</strong>。</li>
+</ul>
+<h4 id="统一资源定位符（URL）"><a href="#统一资源定位符（URL）" class="headerlink" title="统一资源定位符（URL）"></a>统一资源定位符（URL）</h4><ul>
+<li>相当于一个文件名在网络范围的扩展，是与互联网相连的机器上的任何可访问对象的一个指针。</li>
+<li><strong>格式</strong>：<code>协议://主机名:端口/路径</code><ul>
+<li><strong>协议</strong>：最常用<code>http</code>，其次<code>ftp</code>，后跟<code>://</code>。</li>
+<li><strong>主机名</strong>：存放万维网文档的主机的域名（通常以www开头），也可用IP地址。</li>
+<li><strong>端口</strong>：默认端口（HTTP为80）可省略，否则必须写明。</li>
+<li><strong>路径</strong>：可包含若干斜线，有时可以省略。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="6-5-2-HTTP协议"><a href="#6-5-2-HTTP协议" class="headerlink" title="6.5.2 HTTP协议"></a>6.5.2 HTTP协议</h3><h4 id="1-HTTP的操作过程"><a href="#1-HTTP的操作过程" class="headerlink" title="1. HTTP的操作过程"></a>1. HTTP的操作过程</h4><ul>
+<li>HTTP是面向事务的应用层协议，定义了浏览器与服务器之间请求和响应的交互格式与规则。</li>
+<li>服务器进程监听TCP端口80，等待浏览器连接。</li>
+<li>典型过程（以访问<code>http://www.tsinghua.edu.cn/news.htm</code>为例）：<ol>
+<li>浏览器分析URL。</li>
+<li>浏览器向DNS请求解析IP地址。</li>
+<li>DNS解析出IP地址并返回。</li>
+<li>浏览器与服务器建立TCP连接（默认80端口）。</li>
+<li>浏览器发出HTTP请求：<code>GET /news.htm</code>。</li>
+<li>服务器通过HTTP响应返回<code>news.htm</code>文件。</li>
+<li>释放TCP连接。</li>
+<li>浏览器解释文件并显示。</li>
+</ol>
+</li>
+</ul>
+<p><strong>例题（2014年40题）</strong><br>使用浏览器访问某大学Web网站主页时，不可能使用到的协议是（D. SMTP）。<br>（SMTP是邮件协议，与Web访问无关）</p>
+<h4 id="2-HTTP的主要特点"><a href="#2-HTTP的主要特点" class="headerlink" title="2. HTTP的主要特点"></a>2. HTTP的主要特点</h4><ul>
+<li><strong>基于TCP</strong>：保证可靠传输，但HTTP本身<strong>无连接</strong>（交换报文前不需建立HTTP连接）。</li>
+<li><strong>无状态（stateless）</strong>：服务器不记住客户信息，简化设计，易于支持大量并发请求。</li>
+<li><strong>Cookie</strong>：用于跟踪用户活动。服务器生成唯一识别码（Cookie）发给客户端，客户端再次访问时携带该Cookie，服务器据此识别用户。</li>
+<li><strong>持续连接与非持续连接</strong>：<ul>
+<li><strong>HTTP&#x2F;1.0</strong>：非持续连接，每个请求需要建立TCP连接，开销为2倍RTT（一次连接，一次请求&#x2F;响应）。</li>
+<li><strong>HTTP&#x2F;1.1</strong>：持续连接，一次TCP连接可传送多个请求&#x2F;响应。持续连接又有两种方式：<ul>
+<li><strong>非流水线方式</strong>：收到前一个响应后才能发下一个请求，每个对象需一个RTT。</li>
+<li><strong>流水线方式</strong>：无需等待响应即可连续发送多个请求，所有对象仅需一个RTT。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>例题（某题）</strong><br>网络拓扑中，本地域名服务器递归查询，其他域名服务器迭代查询，RTT&#x3D;10ms。主机H通过超链接请求<code>http://www.abc.com/index.html</code>，最短时间与最长时间分别是？</p>
+<ul>
+<li>最短：DNS递归+HTTP一次RTT？需考虑解析与连接。典型答案为<strong>20ms, 40ms</strong>（解析10ms+HTTP一次RTT&#x3D;20ms；若需多次解析则更长）。根据常见解析，选C。</li>
+</ul>
+<h4 id="3-HTTP的报文结构"><a href="#3-HTTP的报文结构" class="headerlink" title="3. HTTP的报文结构"></a>3. HTTP的报文结构</h4><ul>
+<li>HTTP报文是面向文本的，每个字段为ASCII码串。</li>
+<li>两类报文：<strong>请求报文</strong>（客户→服务器）、<strong>响应报文</strong>（服务器→客户）。</li>
+<li>报文由三部分组成：<ol>
+<li><strong>开始行</strong>：请求行（请求报文）或状态行（响应报文）。</li>
+<li><strong>首部行</strong>：说明浏览器、服务器或报文主体信息，可多行，以空行结束。</li>
+<li><strong>实体主体</strong>：通常为空或包含数据。</li>
+</ol>
+</li>
+</ul>
+<p><strong>请求行</strong>格式：<code>方法 请求资源的URL HTTP版本</code></p>
+<ul>
+<li><strong>方法</strong>（常用）：<ul>
+<li><code>GET</code>：请求读取URL指定的信息</li>
+<li><code>HEAD</code>：请求读取URL指定信息的首部</li>
+<li><code>POST</code>：给服务器添加信息（如注释）</li>
+<li><code>PUT</code>：在指定URL下存储一个文档</li>
+<li><code>DELETE</code>：删除指定URL的资源</li>
+<li><code>TRACE</code>：环回测试</li>
+<li><code>CONNECT</code>：用于代理服务器</li>
+</ul>
+</li>
+</ul>
+<p><strong>状态行</strong>格式：<code>HTTP版本 状态码 短语</code></p>
+<ul>
+<li><strong>状态码</strong>分类：<ul>
+<li>1xx：通知信息</li>
+<li>2xx：成功（如<code>202 Accepted</code>）</li>
+<li>3xx：重定向</li>
+<li>4xx：客户端错误（如<code>400 Bad Request</code>、<code>404 Not Found</code>）</li>
+<li>5xx：服务器错误</li>
+</ul>
+</li>
+</ul>
+<p><strong>请求报文示例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET /dir/index.htm HTTP/1.1</span><br><span class="line">Host: www.xyz.edu.cn</span><br><span class="line">Connection: close</span><br><span class="line">User-Agent: Mozilla/5.0</span><br><span class="line">Accept-Language: cn</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>例题（2015年40题）</strong><br>某浏览器发出的HTTP请求报文如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET /index.html HTTP/1.1</span><br><span class="line">Host: www.test.edu.cn</span><br><span class="line">Connection: Close</span><br><span class="line">Cookie: 123456</span><br></pre></td></tr></table></figure>
+<p>错误的叙述是（C. 该浏览器请求使用持续连接）<br>（<code>Connection: Close</code>表示非持续连接）</p>
+<h4 id="4-应用层协议与端口号总结"><a href="#4-应用层协议与端口号总结" class="headerlink" title="4. 应用层协议与端口号总结"></a>4. 应用层协议与端口号总结</h4><table>
+<thead>
+<tr>
+<th>应用程序</th>
+<th>使用协议</th>
+<th>熟知端口号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FTP数据连接</td>
+<td>TCP</td>
+<td>20</td>
+</tr>
+<tr>
+<td>FTP控制连接</td>
+<td>TCP</td>
+<td>21</td>
+</tr>
+<tr>
+<td>TELNET</td>
+<td>TCP</td>
+<td>23</td>
+</tr>
+<tr>
+<td>SMTP</td>
+<td>TCP</td>
+<td>25</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>UDP</td>
+<td>53</td>
+</tr>
+<tr>
+<td>TFTP</td>
+<td>UDP</td>
+<td>69</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>TCP</td>
+<td>80</td>
+</tr>
+<tr>
+<td>POP3</td>
+<td>TCP</td>
+<td>110</td>
+</tr>
+<tr>
+<td>SNMP</td>
+<td>UDP</td>
+<td>161</td>
+</tr>
+</tbody></table>
+<p><strong>例题（2018年33题）</strong><br>下列TCP&#x2F;IP应用层协议中，可以使用传输层无连接服务的是（B. DNS）。<br>（DNS使用UDP，其他均使用TCP）</p>
+<hr>
+<h3 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h3><ol>
+<li><p>万维网(WWW)是资源的网络，它主要由哪些部分构成？（A. HTML、URL和HTTP）</p>
+</li>
+<li><p><strong>谢希仁教材6-09</strong><br>若超链指向无效的计算机名字，浏览器将报告“无法解析主机名”或类似错误。</p>
+</li>
+<li><p><strong>谢希仁教材6-10</strong><br>除HTTP外，还需要DNS（应用层）和UDP&#x2F;TCP（传输层，DNS用UDP，HTTP用TCP）。</p>
+</li>
+<li><p><strong>谢希仁教材6-14</strong><br>(1) 错。一个网页有1个文本文件和3个图片，通常每个对象需一个HTTP请求，共4个请求，但可在一个持续连接中完成。<br>(2) 对。同一个服务器，HTTP&#x2F;1.1持续连接可传送多个页面。<br>(3) 错。非持续连接每个HTTP请求需单独的TCP连接，一个TCP报文段只能装一个HTTP请求。<br>(4) 错。响应报文可能没有实体主体（如<code>HEAD</code>请求的响应）。</p>
+</li>
+<li><p><strong>谢希仁教材6-15</strong><br>解析时间 &#x3D; $RTT_1 + RTT_2 + \dots + RTT_n$（递归解析可能累加），加上读取网页的RTT_w，总时间 &#x3D; $\sum RTT_i + RTT_w$。</p>
+</li>
+<li><p><strong>谢希仁教材6-16</strong><br>设一个对象传输时间为$RTT$（忽略数据本身时间）。<br>(1) 没有并行TCP的非持续HTTP：每个对象需一次连接+一次请求&#x2F;响应，3个对象+主页面共4次，时间 &#x3D; $4 \times (2RTT) &#x3D; 8RTT$。<br>(2) 使用并行TCP的非持续HTTP：若并行连接数足够，可同时建立多个连接，时间 &#x3D; $2RTT + 2RTT &#x3D; 4RTT$（主页面一次，并行取三个图片一次）。<br>(3) 流水线方式的持续HTTP：一次连接，所有请求流水线发送，时间 &#x3D; $2RTT$（建立连接+请求&#x2F;响应）。</p>
+</li>
+</ol>
+<hr>
+<p><strong>笔记结束</strong></p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/05/18/CN/6.3%20FTP/">6.3 FTP</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/05/18/CN/5.3%20TCP%E5%8D%8F%E8%AE%AE/">5.3 TCP协议</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>Aki’s Digital Garden | <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">赣ICP备2025075264号-1</a> | <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/image/gongan.png" alt="公安备案图标" style="width:20px; height:20px; vertical-align:middle; margin-right:4px;"><a target="_blank" rel="noopener" href="https://beian.mps.gov.cn/#/query/webSearch">赣公网安备36020002000627号</a><br>Built with Stellar · CC BY-NC-SA 4.0 · Attribution required</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5-WWW"><span class="toc-text">6.5 WWW</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-1-WWW%E7%9A%84%E6%A6%82%E5%BF%B5%E4%B8%8E%E7%BB%84%E6%88%90%E7%BB%93%E6%9E%84"><span class="toc-text">6.5.1 WWW的概念与组成结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%87%E7%BB%B4%E7%BD%91%E7%9A%84%E5%86%85%E6%A0%B8%E4%B8%89%E6%A0%87%E5%87%86"><span class="toc-text">万维网的内核三标准</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F"><span class="toc-text">工作方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E7%AC%A6%EF%BC%88URL%EF%BC%89"><span class="toc-text">统一资源定位符（URL）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-2-HTTP%E5%8D%8F%E8%AE%AE"><span class="toc-text">6.5.2 HTTP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-HTTP%E7%9A%84%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="toc-text">1. HTTP的操作过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-HTTP%E7%9A%84%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9"><span class="toc-text">2. HTTP的主要特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-HTTP%E7%9A%84%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84"><span class="toc-text">3. HTTP的报文结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%E4%B8%8E%E7%AB%AF%E5%8F%A3%E5%8F%B7%E6%80%BB%E7%BB%93"><span class="toc-text">4. 应用层协议与端口号总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98"><span class="toc-text">习题</span></a></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function (response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function (data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function (error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+<!-- required -->
+<script src="/js/main.js?v=1.30.0" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

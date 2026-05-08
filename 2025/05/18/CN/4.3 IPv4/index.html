@@ -1,0 +1,1052 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.30.0" theme-name="Stellar" theme-version="1.30.0">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>Aki</title>
+
+  
+    <meta name="description" content="4.3 IPv44.3.1 IPv4分组IPv4（Internet Protocol version 4）是互联网协议第四版，定义了数据报文的格式、寻址方案、分片和传输过程。 IPv4分组格式IPv4数据报包含首部和数据部分。首部由20字节的固定部分和长度可变的可选字段组成。 首部字段说明：    字段 长度 说明    版本 4位 IP协议版本号（IPv4为4）   首部长度 4位 头部长度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Aki">
+<meta property="og:url" content="http://meetaki.com/2025/05/18/CN/4.3%20IPv4/index.html">
+<meta property="og:site_name" content="Aki">
+<meta property="og:description" content="4.3 IPv44.3.1 IPv4分组IPv4（Internet Protocol version 4）是互联网协议第四版，定义了数据报文的格式、寻址方案、分片和传输过程。 IPv4分组格式IPv4数据报包含首部和数据部分。首部由20字节的固定部分和长度可变的可选字段组成。 首部字段说明：    字段 长度 说明    版本 4位 IP协议版本号（IPv4为4）   首部长度 4位 头部长度">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-18T13:30:09.000Z">
+<meta property="article:modified_time" content="2026-05-08T14:46:21.269Z">
+<meta property="article:author" content="Aki">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="学习笔记">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.30.0">
+
+
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/xaoxuu/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/xaoxuu/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/xaoxuu/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/xaoxuu/favicon/site.webmanifest"><link rel="shortcut icon" href="/assets/xaoxuu/favicon/favicon.ico"><meta name="theme-color" content="#f8f8f8"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" media="all" />
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://meetaki.oss-cn-guangzhou.aliyuncs.com/img1/20251019221556223.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Aki</div><div class="sub normal cap">Learn to code</div><div class="sub hover cap" style="opacity:0"> Code to learn</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="探索" href="/about/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="currentColor"></circle><path fill="currentColor" d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5" opacity="0.5"></path></svg></a></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/05/18/mysql/"><span class="title">MySQL</span></a><a class="item title" href="/2025/05/18/JDBC/"><span class="title">JDBC</span></a><a class="item title" href="/2025/05/18/CN/6.5%20WWW/"><span class="title">6.5 WWW</span></a><a class="item title" href="/2025/05/18/CN/6.4%20%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/"><span class="title">6.4 电子邮件</span></a><a class="item title" href="/2025/05/18/CN/6.3%20FTP/"><span class="title">6.3 FTP</span></a><a class="item title" href="/2025/05/18/CN/6.2%20DNS%E7%B3%BB%E7%BB%9F/"><span class="title">6.2 DNS系统</span></a><a class="item title" href="/2025/05/18/CN/6.1%20%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B/"><span class="title">6.1 网络应用模型</span></a><a class="item title" href="/2025/05/18/CN/5.3%20TCP%E5%8D%8F%E8%AE%AE/"><span class="title">5.3 TCP协议</span></a><a class="item title" href="/2025/05/18/CN/5.2%20UDP%E5%8D%8F%E8%AE%AE/"><span class="title">5.2 UDP协议</span></a><a class="item title" href="/2025/05/18/CN/5.1%20%E4%BC%A0%E8%BE%93%E5%B1%82%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1/"><span class="title">5.1 传输层提供的服务</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/408/">408</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/408/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-05-18T13:30:09.000Z">2025-05-18</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-08T14:46:21.269Z">2026-05-08</time></span></div></div></div>
+    
+  </div>
+  </div><article class="md-text content"><span id="more"></span>
+
+<h2 id="4-3-IPv4"><a href="#4-3-IPv4" class="headerlink" title="4.3 IPv4"></a>4.3 IPv4</h2><h3 id="4-3-1-IPv4分组"><a href="#4-3-1-IPv4分组" class="headerlink" title="4.3.1 IPv4分组"></a>4.3.1 IPv4分组</h3><p>IPv4（Internet Protocol version 4）是互联网协议第四版，定义了数据报文的格式、寻址方案、分片和传输过程。</p>
+<h4 id="IPv4分组格式"><a href="#IPv4分组格式" class="headerlink" title="IPv4分组格式"></a>IPv4分组格式</h4><p>IPv4数据报包含首部和数据部分。首部由20字节的固定部分和长度可变的可选字段组成。</p>
+<p><strong>首部字段说明</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>版本</strong></td>
+<td>4位</td>
+<td>IP协议版本号（IPv4为4）</td>
+</tr>
+<tr>
+<td><strong>首部长度</strong></td>
+<td>4位</td>
+<td>头部长度，以4字节为单位（最小5，最大15）</td>
+</tr>
+<tr>
+<td><strong>区分服务</strong></td>
+<td>8位</td>
+<td>服务类型字段（旧称TOS），用于区分优先级</td>
+</tr>
+<tr>
+<td><strong>总长度</strong></td>
+<td>16位</td>
+<td>整个数据报总长度（首部+数据），单位字节，最大65535B</td>
+</tr>
+<tr>
+<td><strong>标识</strong></td>
+<td>16位</td>
+<td>数据报的唯一ID，用于分片和重组</td>
+</tr>
+<tr>
+<td><strong>标志</strong></td>
+<td>3位</td>
+<td>控制分片：DF（禁止分片位，0允许）、MF（更多分片位，1表示有后续分片）</td>
+</tr>
+<tr>
+<td><strong>片偏移</strong></td>
+<td>13位</td>
+<td>分片相对于原始数据报起始位置的偏移量，以8字节为单位</td>
+</tr>
+<tr>
+<td><strong>生存时间(TTL)</strong></td>
+<td>8位</td>
+<td>最大路由器跳数，每转发一次减1，为0时丢弃</td>
+</tr>
+<tr>
+<td><strong>协议</strong></td>
+<td>8位</td>
+<td>上层协议类型（如TCP&#x3D;6，UDP&#x3D;17）</td>
+</tr>
+<tr>
+<td><strong>首部校验和</strong></td>
+<td>16位</td>
+<td>只校验首部，不校验数据</td>
+</tr>
+<tr>
+<td><strong>源IP地址</strong></td>
+<td>32位</td>
+<td>发送方IP地址</td>
+</tr>
+<tr>
+<td><strong>目的IP地址</strong></td>
+<td>32位</td>
+<td>接收方IP地址</td>
+</tr>
+<tr>
+<td><strong>可选项</strong></td>
+<td>可变</td>
+<td>用于扩展功能</td>
+</tr>
+</tbody></table>
+<p><strong>常见协议字段值</strong>：</p>
+<ul>
+<li>ICMP:1, IGMP:2, IP:4, TCP:6, EGP:8, IGP:9, UDP:17, IPv6:41, ICMP-IPv6:58, OSPF:89</li>
+</ul>
+<h4 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h4><ul>
+<li><strong>MTU（最大传送单元）</strong>：数据链路层能承载的最大数据量。以太网MTU&#x3D;1500B，广域网常≤576B。</li>
+<li><strong>分片</strong>：当IP数据报长度超过MTU时，需分成多个<strong>片</strong>，每个片都有自己的IP首部。</li>
+<li><strong>标识</strong>：原始数据报的标识号复制到所有片中，用于重组。</li>
+<li><strong>标志位</strong>：<ul>
+<li><strong>MF</strong>：除最后一个片外，MF&#x3D;1。</li>
+<li><strong>DF</strong>：允许分片时设为0。</li>
+</ul>
+</li>
+<li><strong>片偏移</strong>：以8字节为单位，表示该片在原始数据报中的位置（除最后一个片外，每个片的数据长度必须是8字节的整数倍）。</li>
+</ul>
+<p><strong>例题（2021年36题）</strong><br>路由器向MTU&#x3D;800B的链路转发总长度1580B的IP数据报（首部20B），进行分片，每个分片尽可能大，求第2个分片的总长度字段和MF标志位的值。</p>
+<ul>
+<li>每个分片数据部分最大 &#x3D; 800 - 20 &#x3D; 780B，需为8的倍数，取776B。</li>
+<li>原始数据部分 &#x3D; 1580 - 20 &#x3D; 1560B。</li>
+<li>第1片：数据776B，偏移0，MF&#x3D;1。</li>
+<li>第2片：数据776B，偏移776&#x2F;8&#x3D;97，MF&#x3D;1（因还有剩余）。</li>
+<li>剩余数据 &#x3D; 1560 - 776×2 &#x3D; 8B，第3片数据8B，MF&#x3D;0。</li>
+<li>第2片总长度 &#x3D; 20 + 776 &#x3D; 796B，MF&#x3D;1。<br><strong>答案：B. 796, 1</strong></li>
+</ul>
+<p><strong>首部校验和计算</strong>：</p>
+<ul>
+<li>发送方：将首部按16位字序列求和（反码算术运算），校验和字段置0，求和后取反码写入。</li>
+<li>接收方：将首部所有16位字反码求和，结果取反，若为0则正确，否则丢弃。</li>
+</ul>
+<hr>
+<h3 id="4-3-2-IPv4地址与NAT"><a href="#4-3-2-IPv4地址与NAT" class="headerlink" title="4.3.2 IPv4地址与NAT"></a>4.3.2 IPv4地址与NAT</h3><h4 id="IPv4地址"><a href="#IPv4地址" class="headerlink" title="IPv4地址"></a>IPv4地址</h4><ul>
+<li>32位二进制，点分十进制表示（如192.168.0.1）。</li>
+<li>结构：IP地址 &#x3D; {网络号, 主机号}，网络号唯一标识网络，主机号标识网络内设备。</li>
+</ul>
+<p><strong>分类的IP地址</strong>（传统A、B、C类）：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>网络号位数</th>
+<th>主机号位数</th>
+<th>范围</th>
+<th>默认子网掩码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>8</td>
+<td>24</td>
+<td>0.0.0.0 ~ 127.255.255.255</td>
+<td>255.0.0.0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>16</td>
+<td>16</td>
+<td>128.0.0.0 ~ 191.255.255.255</td>
+<td>255.255.0.0</td>
+</tr>
+<tr>
+<td>C</td>
+<td>24</td>
+<td>8</td>
+<td>192.0.0.0 ~ 223.255.255.255</td>
+<td>255.255.255.0</td>
+</tr>
+</tbody></table>
+<p><strong>特殊IP地址</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0.0.0.0</td>
+<td>本网络上的本主机（只能作为源地址）</td>
+</tr>
+<tr>
+<td>127.x.x.x</td>
+<td>环回地址（测试用，不会出现在网络上）</td>
+</tr>
+<tr>
+<td>主机号全0</td>
+<td>网络地址（标识整个网络）</td>
+</tr>
+<tr>
+<td>主机号全1</td>
+<td>广播地址（向网络内所有主机发送）</td>
+</tr>
+<tr>
+<td>255.255.255.255</td>
+<td>受限广播（只能作为目的地址）</td>
+</tr>
+</tbody></table>
+<p><strong>例题（2017年36题）</strong><br>只能作为源IP地址但不能作为目的IP地址的是（A. 0.0.0.0）</p>
+<h4 id="网络地址转换-NAT"><a href="#网络地址转换-NAT" class="headerlink" title="网络地址转换(NAT)"></a>网络地址转换(NAT)</h4><ul>
+<li><p><strong>目的</strong>：解决IPv4地址枯竭，隐藏内部网络。</p>
+</li>
+<li><p><strong>私有IP地址</strong>：</p>
+<ul>
+<li>A类：10.0.0.0 ~ 10.255.255.255（1个网段）</li>
+<li>B类：172.16.0.0 ~ 172.31.255.255（16个网段）</li>
+<li>C类：192.168.0.0 ~ 192.168.255.255（256个网段）</li>
+</ul>
+</li>
+<li><p><strong>NAT类型</strong>：</p>
+<ul>
+<li>静态NAT：一对一映射。</li>
+<li>动态NAT：从地址池中动态映射。</li>
+<li>NAPT（端口级NAT）：多个私有IP映射到一个公共IP，用端口号区分。</li>
+</ul>
+</li>
+<li><p><strong>工作原理</strong>：NAT路由器维护转换表，将内部地址:端口映射为外部地址:端口。转发时修改IP地址和端口号。</p>
+</li>
+</ul>
+<hr>
+<h3 id="4-3-3-子网划分、路由聚集、子网掩码与CIDR"><a href="#4-3-3-子网划分、路由聚集、子网掩码与CIDR" class="headerlink" title="4.3.3 子网划分、路由聚集、子网掩码与CIDR"></a>4.3.3 子网划分、路由聚集、子网掩码与CIDR</h3><h4 id="1-子网划分"><a href="#1-子网划分" class="headerlink" title="1. 子网划分"></a>1. 子网划分</h4><ul>
+<li>从主机号借位作为<strong>子网号</strong>，形成三级结构：IP地址 &#x3D; {网络号, 子网号, 主机号}。</li>
+<li>子网划分对外部不可见。</li>
+<li>子网号不能全0或全1（RFC 950），但CIDR允许。</li>
+</ul>
+<h4 id="2-子网掩码"><a href="#2-子网掩码" class="headerlink" title="2. 子网掩码"></a>2. 子网掩码</h4><ul>
+<li>32位，1对应网络号+子网号，0对应主机号。</li>
+<li>默认掩码：A类255.0.0.0，B类255.255.0.0，C类255.255.255.0。</li>
+<li>同一子网内所有主机必须使用相同的子网掩码。</li>
+</ul>
+<h4 id="3-无分类域间路由选择CIDR"><a href="#3-无分类域间路由选择CIDR" class="headerlink" title="3. 无分类域间路由选择CIDR"></a>3. 无分类域间路由选择CIDR</h4><ul>
+<li>消除传统ABC类，使用<strong>网络前缀</strong>任意长度：IP地址 &#x3D; {网络前缀, 主机号}。</li>
+<li>表示法：IP地址&#x2F;前缀长度（如192.168.0.0&#x2F;24）。</li>
+<li><strong>CIDR地址块</strong>：网络前缀相同的连续IP地址集合。</li>
+<li><strong>最长前缀匹配</strong>：路由表中选择匹配结果中网络前缀最长的条目（最具体）。</li>
+<li><strong>路由聚合</strong>：将多个连续CIDR地址块合并为一个更大的地址块，减少路由表条目。</li>
+</ul>
+<p><strong>例题（2010年37题）</strong><br>192.168.5.0&#x2F;24，子网掩码255.255.255.248，最大子网个数和每个子网最大可分配地址个数？</p>
+<ul>
+<li>248 &#x3D; 11111000，借用了5位主机位作为子网号，子网数 &#x3D; 2^5 &#x3D; 32（去掉全0全1？原题采用定长子网划分，是否允许全0全1？通常习题中按可用子网计算，但此处未说明，选项B.32,6 对应子网数32，每个子网主机数2^3-2&#x3D;6。选B）</li>
+</ul>
+<p><strong>例题（2012年39题）</strong><br>主机IP 180.80.77.55，子网掩码255.255.252.0，向其所在子网发送广播分组，目的地址？</p>
+<ul>
+<li>掩码252&#x3D;11111100，网络前缀22位（180.80.76.0&#x2F;22）。广播地址为主机号全1，即180.80.79.255。选D</li>
+</ul>
+<p><strong>例题（2018年38题）</strong><br>四条路由35.230.32.0&#x2F;21, 35.230.40.0&#x2F;21, 35.230.48.0&#x2F;21, 35.230.56.0&#x2F;21聚合后的目的网络地址？</p>
+<ul>
+<li>这四个网络的前缀21位，前16位相同，后5位不同。32&#x3D;00100000, 40&#x3D;00101000, 48&#x3D;00110000, 56&#x3D;00111000。公共前缀为前19位（00100000前5位），聚合为35.230.32.0&#x2F;19。选C</li>
+</ul>
+<p><strong>例题（2021年35题）</strong><br>将一个IP网络划分为3个子网，其中一个子网是192.168.9.128&#x2F;26，不可能是另外两个子网之一的是？</p>
+<ul>
+<li>&#x2F;26的子网掩码255.255.255.192，块大小64。128&#x2F;26覆盖128-191。A. &#x2F;25覆盖0-127，不重叠且大小合适；B. &#x2F;26覆盖0-63，与128&#x2F;26不重叠；C. &#x2F;26覆盖192-255，不重叠；D. &#x2F;27覆盖192-223，与128&#x2F;26不重叠，但&#x2F;27是&#x2F;26的子集，如果已用&#x2F;26划分，再分&#x2F;27可能造成重叠？实际上&#x2F;26的地址块128-191与&#x2F;27的192-223不重叠，所以D也是可能的。但选项A是&#x2F;25，包含0-127，与128-191不重叠；B是&#x2F;26（0-63）；C是&#x2F;26（192-255）；D是&#x2F;27（192-223）。这里考察的是划分成三个子网，其中一个为128&#x2F;26，剩下地址空间为0-127和192-255，如果另外两个子网是0&#x2F;26和192&#x2F;26，则正好三个&#x2F;26，所以A、B、C都是可能的，但D是&#x2F;27，使用192-223，另一个子网需覆盖剩下的224-255，也是一个&#x2F;27，这样总共得到两个&#x2F;26和一个&#x2F;27，但还需要一个&#x2F;27，实际上将192&#x2F;26分成两个&#x2F;27，那么三个子网就是128&#x2F;26、0&#x2F;26、192&#x2F;27、224&#x2F;27，实际上是4个子网。所以题目要求“划分为3个子网”，因此另外两个子网必须恰好覆盖剩余空间，不能有剩余。因此D不是可能之一（因为如果192&#x2F;26被分成两个&#x2F;27，则子网数变为4）。选D</li>
+</ul>
+<hr>
+<h3 id="4-3-4-ARP协议、DHCP协议与ICMP协议"><a href="#4-3-4-ARP协议、DHCP协议与ICMP协议" class="headerlink" title="4.3.4 ARP协议、DHCP协议与ICMP协议"></a>4.3.4 ARP协议、DHCP协议与ICMP协议</h3><h4 id="1-IP地址与MAC地址"><a href="#1-IP地址与MAC地址" class="headerlink" title="1. IP地址与MAC地址"></a>1. IP地址与MAC地址</h4><ul>
+<li>IP地址用于网络层寻址，MAC地址用于数据链路层寻址。</li>
+<li>路由器转发时，数据链路层帧的MAC地址不断改变，IP地址不变。</li>
+</ul>
+<h4 id="2-ARP协议"><a href="#2-ARP协议" class="headerlink" title="2. ARP协议"></a>2. ARP协议</h4><ul>
+<li>地址解析协议，将IP地址解析为MAC地址。</li>
+<li>工作过程：<ol>
+<li>主机A在ARP缓存中查找目标IP，若无则广播ARP请求（目的MAC&#x3D;FF-FF-FF-FF-FF-FF）。</li>
+<li>目标主机B收到请求，若IP匹配，则单播ARP响应（包含自己的MAC地址）。</li>
+<li>A收到响应，更新缓存，发送数据帧。</li>
+</ol>
+</li>
+<li>ARP仅在同一个局域网内使用，不同网络通过路由器转发。</li>
+</ul>
+<p><strong>例题（2012年38题）</strong><br>ARP协议的功能是（A. 根据IP地址查询MAC地址）</p>
+<h4 id="3-DHCP协议"><a href="#3-DHCP协议" class="headerlink" title="3. DHCP协议"></a>3. DHCP协议</h4><ul>
+<li>动态主机配置协议，应用层协议，基于UDP（客户端端口68，服务器端口67）。</li>
+<li>即插即用，自动分配IP地址。</li>
+<li>工作流程：<ol>
+<li><strong>DHCPDISCOVER</strong>：客户端广播（源IP 0.0.0.0，目的255.255.255.255）。</li>
+<li><strong>DHCPOFFER</strong>：服务器广播提供IP地址。</li>
+<li><strong>DHCPREQUEST</strong>：客户端广播请求使用该地址。</li>
+<li><strong>DHCPACK</strong>：服务器广播确认，绑定地址，并设置租用期T。</li>
+<li>租用期到达T1&#x3D;0.5T时，客户端单播请求更新；到达T2&#x3D;0.875T时广播请求更新。</li>
+</ol>
+</li>
+<li>DHCP中继代理：用于跨网络转发DHCP报文。</li>
+</ul>
+<h4 id="4-ICMP协议"><a href="#4-ICMP协议" class="headerlink" title="4. ICMP协议"></a>4. ICMP协议</h4><ul>
+<li>网际控制报文协议，网络层，用于传递控制消息和诊断。</li>
+<li>ICMP报文封装在IP数据报中。</li>
+</ul>
+<p><strong>ICMP差错报告报文</strong>（向源主机报告）：</p>
+<ul>
+<li>终点不可达（3）</li>
+<li>时间超过（11）</li>
+<li>参数问题（12）</li>
+<li>改变路由（5）</li>
+</ul>
+<p><strong>ICMP询问报文</strong>：</p>
+<ul>
+<li>回送请求&#x2F;回答（8&#x2F;0）—— ping使用</li>
+<li>时间戳请求&#x2F;回答（13&#x2F;14）</li>
+</ul>
+<p><strong>不应发送ICMP差错报文的几种情况</strong>：</p>
+<ul>
+<li>对ICMP差错报文不再发送</li>
+<li>对非第一个分片的数据报片</li>
+<li>对组播地址的数据报</li>
+</ul>
+<p><strong>例题（2010年36题）</strong><br>路由器因拥塞丢弃IP分组，发送的ICMP报文类型是（C. 源点抑制）—— 注：源点抑制已在最新标准中不再使用，但考题仍可能涉及。</p>
+<hr>
+<h3 id="习题（部分）"><a href="#习题（部分）" class="headerlink" title="习题（部分）"></a>习题（部分）</h3><ol>
+<li><p>ping命令使用哪两种ICMP消息类型？<br><strong>B. 回显请求和回显应答</strong></p>
+</li>
+<li><p>DHCP客户端第一次发出的请求消息是？<br><strong>A. DHCPDISCOVER</strong></p>
+</li>
+<li><p><strong>谢希仁4-11</strong>：计算首部检验和（略，按反码求和计算）</p>
+</li>
+<li><p><strong>谢希仁4-14</strong>：分片在目的主机组装 vs 每过一个网络组装一次：后者可减少后续网络传输的数据量，但增加中间节点处理负担，且一旦某片丢失，需重新传输。通常采用目的主机组装。</p>
+</li>
+<li><p><strong>谢希仁4-15</strong>：3200位TCP报文+160位IP首部&#x3D;3360位。第二个局域网MTU数据部分1200位，即IP数据报最大长度1200+160&#x3D;1360位。分片：每片数据部分最大1200位，但IP首部160位，实际每片总长1360位。第一个片数据1200，偏移0；第二个片数据1200，偏移1200&#x2F;8&#x3D;150；第三个片数据800，偏移2400&#x2F;8&#x3D;300。总数据量3200位，但第三个片数据800位，总传输比特数&#x3D;1360+1360+960&#x3D;3680位。</p>
+</li>
+<li><p><strong>谢希仁4-16</strong>：略</p>
+</li>
+<li><p><strong>谢希仁4-17</strong>：经过5个路由器，总共需要6次ARP（每个网段一次，从源到目的每段都需要解析MAC地址）。</p>
+</li>
+<li><p><strong>谢希仁4-20</strong>：4000字节数据报，首部20，数据3980。MTU1500，每个分片数据最大1480（因为首部20，总长1500）。分片：1480,1480,1020。片偏移：0,185,370。MF：1,1,0。</p>
+</li>
+<li><p><strong>谢希仁4-22</strong>：四个地址块：212.56.132.0&#x2F;24, 212.56.133.0&#x2F;24, 212.56.134.0&#x2F;24, 212.56.135.0&#x2F;24，前22位相同（212.56.132.0&#x2F;22），聚合为212.56.132.0&#x2F;22。</p>
+</li>
+<li><p><strong>谢希仁4-23</strong>：208.128&#x2F;11 包含 208.128.0.0 ~ 208.159.255.255；208.130.28&#x2F;22 包含 208.130.28.0 ~ 208.130.31.255，前者包含后者。</p>
+</li>
+<li><p><strong>谢希仁4-26</strong>：需按主机数分配子网，满足每个子网的主机数要求（略）。</p>
+</li>
+<li><p><strong>谢希仁4-29</strong>：152.7.77.159 和 152.31.47.252，匹配的前缀需同时覆盖两者。选项(4)152.0&#x2F;11 覆盖 152.0.0.0~152.31.255.255，包含两个地址。其他选项不匹配。</p>
+</li>
+<li><p><strong>谢希仁4-31</strong>：140.120.84.24&#x2F;20，最小地址140.120.80.0，最大140.120.95.255，掩码255.255.240.0，地址数4096，相当于16个C类。</p>
+</li>
+<li><p><strong>谢希仁4-33</strong>：136.23.12.64&#x2F;26，划分为4个子网，每个子网前缀28位，地址数16，可用14个。子网地址：136.23.12.64&#x2F;28, 136.23.12.80&#x2F;28, 136.23.12.96&#x2F;28, 136.23.12.112&#x2F;28。每个子网最小地址：网络地址+1，最大地址：广播地址-1。</p>
+</li>
+<li><p><strong>谢希仁4-45</strong>：167.199.170.82&#x2F;27，掩码255.255.255.224，前缀长度27，后缀5，网络前缀167.199.170.64。</p>
+</li>
+</ol>
+<hr>
+<p><strong>笔记结束</strong></p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/05/18/CN/3.8%20%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E8%AE%BE%E5%A4%87/">3.8 数据链路层设备</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/05/18/CN/4.2%20%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/">4.2 路由算法</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>Aki’s Digital Garden | <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">赣ICP备2025075264号-1</a> | <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/image/gongan.png" alt="公安备案图标" style="width:20px; height:20px; vertical-align:middle; margin-right:4px;"><a target="_blank" rel="noopener" href="https://beian.mps.gov.cn/#/query/webSearch">赣公网安备36020002000627号</a><br>Built with Stellar · CC BY-NC-SA 4.0 · Attribution required</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-IPv4"><span class="toc-text">4.3 IPv4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-1-IPv4%E5%88%86%E7%BB%84"><span class="toc-text">4.3.1 IPv4分组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IPv4%E5%88%86%E7%BB%84%E6%A0%BC%E5%BC%8F"><span class="toc-text">IPv4分组格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IP%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%88%86%E7%89%87"><span class="toc-text">IP数据报分片</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-2-IPv4%E5%9C%B0%E5%9D%80%E4%B8%8ENAT"><span class="toc-text">4.3.2 IPv4地址与NAT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IPv4%E5%9C%B0%E5%9D%80"><span class="toc-text">IPv4地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2-NAT"><span class="toc-text">网络地址转换(NAT)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-3-%E5%AD%90%E7%BD%91%E5%88%92%E5%88%86%E3%80%81%E8%B7%AF%E7%94%B1%E8%81%9A%E9%9B%86%E3%80%81%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81%E4%B8%8ECIDR"><span class="toc-text">4.3.3 子网划分、路由聚集、子网掩码与CIDR</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AD%90%E7%BD%91%E5%88%92%E5%88%86"><span class="toc-text">1. 子网划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81"><span class="toc-text">2. 子网掩码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%97%A0%E5%88%86%E7%B1%BB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9CIDR"><span class="toc-text">3. 无分类域间路由选择CIDR</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-4-ARP%E5%8D%8F%E8%AE%AE%E3%80%81DHCP%E5%8D%8F%E8%AE%AE%E4%B8%8EICMP%E5%8D%8F%E8%AE%AE"><span class="toc-text">4.3.4 ARP协议、DHCP协议与ICMP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-IP%E5%9C%B0%E5%9D%80%E4%B8%8EMAC%E5%9C%B0%E5%9D%80"><span class="toc-text">1. IP地址与MAC地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-ARP%E5%8D%8F%E8%AE%AE"><span class="toc-text">2. ARP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-DHCP%E5%8D%8F%E8%AE%AE"><span class="toc-text">3. DHCP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-ICMP%E5%8D%8F%E8%AE%AE"><span class="toc-text">4. ICMP协议</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98%EF%BC%88%E9%83%A8%E5%88%86%EF%BC%89"><span class="toc-text">习题（部分）</span></a></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function (response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function (data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function (error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+<!-- required -->
+<script src="/js/main.js?v=1.30.0" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
