@@ -1,0 +1,1124 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.30.0" theme-name="Stellar" theme-version="1.30.0">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>数据的表示和运算 - Aki</title>
+
+  
+    <meta name="description" content="数据的表示与运算：数制编码、整数运算、浮点数标准与大小端存储 2.1 数制与编码2.1.1 信息的二进制编码计算机内部所有信息均采用二进制编码，原因如下：  二进制只有两种基本状态，易于用物理器件实现（高低电平、脉冲有无等）。 二进制编码和运算规则简单，便于电路实现。 两个符号0和1正好与逻辑值“假”和“真”对应，便于实现逻辑运算。  在计算机内部，数值数据的表示有两种：  直接用二进制数表示 采">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据的表示和运算">
+<meta property="og:url" content="http://meetaki.com/2025/06/19/CO/2%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%BF%90%E7%AE%97/index.html">
+<meta property="og:site_name" content="Aki">
+<meta property="og:description" content="数据的表示与运算：数制编码、整数运算、浮点数标准与大小端存储 2.1 数制与编码2.1.1 信息的二进制编码计算机内部所有信息均采用二进制编码，原因如下：  二进制只有两种基本状态，易于用物理器件实现（高低电平、脉冲有无等）。 二进制编码和运算规则简单，便于电路实现。 两个符号0和1正好与逻辑值“假”和“真”对应，便于实现逻辑运算。  在计算机内部，数值数据的表示有两种：  直接用二进制数表示 采">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-19T13:30:09.000Z">
+<meta property="article:modified_time" content="2026-05-08T14:25:36.449Z">
+<meta property="article:author" content="Aki">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="学习笔记">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.30.0">
+
+
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/xaoxuu/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/xaoxuu/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/xaoxuu/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/xaoxuu/favicon/site.webmanifest"><link rel="shortcut icon" href="/assets/xaoxuu/favicon/favicon.ico"><meta name="theme-color" content="#f8f8f8"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" media="all" />
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://meetaki.oss-cn-guangzhou.aliyuncs.com/img1/20251019221556223.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Aki</div><div class="sub normal cap">Learn to code</div><div class="sub hover cap" style="opacity:0"> Code to learn</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="探索" href="/about/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="currentColor"></circle><path fill="currentColor" d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5" opacity="0.5"></path></svg></a></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/06/23/CO/6%E6%80%BB%E7%BA%BF%E4%B8%8E%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%B3%BB%E7%BB%9F/"><span class="title">总线与输入输出系统</span></a><a class="item title" href="/2025/06/22/CO/5%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8/"><span class="title">中央处理器</span></a><a class="item title" href="/2025/06/21/CO/4%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/"><span class="title">指令系统</span></a><a class="item title" href="/2025/06/20/CO/3%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/"><span class="title">存储系统</span></a><a class="item title" href="/2025/06/19/CO/2%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%BF%90%E7%AE%97/"><span class="title">数据的表示和运算</span></a><a class="item title" href="/2025/06/18/CO/1%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA/"><span class="title">计算机系统概论</span></a><a class="item title" href="/2024/10/20/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%B2%BE%E8%AF%BB/"><span class="title">进程同步精读：信号量与PV操作</span></a><a class="item title" href="/2025/05/26/09_%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/"><span class="title">09_集合与泛型</span></a><a class="item title" href="/2025/05/25/08_%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB/"><span class="title">08_常用工具类</span></a><a class="item title" href="/2025/05/24/07_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"><span class="title">07_异常处理</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/408/">408</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/408/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-06-19T13:30:09.000Z">2025-06-19</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-08T14:25:36.449Z">2026-05-08</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>数据的表示和运算</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>数据的表示与运算：数制编码、整数运算、浮点数标准与大小端存储</p>
+<h2 id="2-1-数制与编码"><a href="#2-1-数制与编码" class="headerlink" title="2.1 数制与编码"></a>2.1 数制与编码</h2><h3 id="2-1-1-信息的二进制编码"><a href="#2-1-1-信息的二进制编码" class="headerlink" title="2.1.1 信息的二进制编码"></a>2.1.1 信息的二进制编码</h3><p>计算机内部所有信息均采用二进制编码，原因如下：</p>
+<ul>
+<li>二进制只有两种基本状态，易于用物理器件实现（高低电平、脉冲有无等）。</li>
+<li>二进制编码和运算规则简单，便于电路实现。</li>
+<li>两个符号0和1正好与逻辑值“假”和“真”对应，便于实现逻辑运算。</li>
+</ul>
+<p>在计算机内部，数值数据的表示有两种：</p>
+<ul>
+<li>直接用二进制数表示</li>
+<li>采用二进制编码的十进制数（BCD码）</li>
+</ul>
+<h3 id="2-1-2-进位计数制"><a href="#2-1-2-进位计数制" class="headerlink" title="2.1.2 进位计数制"></a>2.1.2 进位计数制</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><ul>
+<li><strong>R进制</strong>：使用R个基本符号，遵循“逢R进一”规则，第i位的位权为$R^i$。</li>
+<li>常用进制：<ul>
+<li>二进制（B）：0,1</li>
+<li>八进制（O）：0~7</li>
+<li>十进制（D）：0~9</li>
+<li>十六进制（H）：0<del>9,A</del>F</li>
+</ul>
+</li>
+</ul>
+<h4 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h4><ul>
+<li><strong>R进制 → 十进制</strong>：按权展开求和。</li>
+<li><strong>十进制 → R进制</strong>：整数部分除R取余，小数部分乘R取整。</li>
+<li><strong>二、八、十六进制互转</strong>：二进制三位一组得八进制，四位一组得十六进制；反之亦然。</li>
+</ul>
+<hr>
+<h3 id="2-1-3-定点数的编码表示"><a href="#2-1-3-定点数的编码表示" class="headerlink" title="2.1.3 定点数的编码表示"></a>2.1.3 定点数的编码表示</h3><h4 id="真值与机器数"><a href="#真值与机器数" class="headerlink" title="真值与机器数"></a>真值与机器数</h4><ul>
+<li><strong>真值</strong>：带正负号的数（如+1011, -1101）。</li>
+<li><strong>机器数</strong>：符号数字化的编码（0正1负）。</li>
+</ul>
+<h4 id="定点表示"><a href="#定点表示" class="headerlink" title="定点表示"></a>定点表示</h4><ul>
+<li><strong>定点小数</strong>：小数点固定在数的最左边，用于表示浮点数的尾数。</li>
+<li><strong>定点整数</strong>：小数点固定在数的最右边，用于表示整数。</li>
+</ul>
+<h4 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h4><ul>
+<li><strong>定义</strong>：最高位为符号位，其余位为数值的绝对值。<ul>
+<li>正数：$[x]<em>{\text{原}} &#x3D; 0X</em>{n-1}\dots X_0$</li>
+<li>负数：$[x]<em>{\text{原}} &#x3D; 1X</em>{n-1}\dots X_0$</li>
+</ul>
+</li>
+<li><strong>表示范围</strong>（n位）：$[-(2^{n-1}-1),\ 2^{n-1}-1]$，0有两种表示（+0和-0）。</li>
+<li><strong>优点</strong>：直观，与真值转换简单。</li>
+<li><strong>缺点</strong>：加减运算复杂。</li>
+</ul>
+<h4 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h4><ul>
+<li><strong>定义</strong>：<ul>
+<li>正数：$[x]<em>{\text{补}} &#x3D; [x]</em>{\text{原}}$</li>
+<li>负数：$[x]_{\text{补}} &#x3D; 2^n + x$（即原码取反加1）</li>
+</ul>
+</li>
+<li><strong>表示范围</strong>（n位）：$[-2^{n-1},\ 2^{n-1}-1]$，0的表示唯一。</li>
+<li><strong>特殊值</strong>（n位）：<ul>
+<li>$[-1]_{\text{补}} &#x3D; 1,11\ldots 11$（n个1）</li>
+<li>$[2^{n-1}-1]_{\text{补}} &#x3D; 0,11\ldots 11$（n-1个1）</li>
+<li>$[-2^{n-1}]_{\text{补}} &#x3D; 1,00\ldots 00$（n-1个0）</li>
+</ul>
+</li>
+<li><strong>原码 ↔ 补码快速转换</strong>：从低位向高位找到第一个1，该位及更低位的所有位不变，更高位全部取反（符号位也取反）。</li>
+</ul>
+<h4 id="反码"><a href="#反码" class="headerlink" title="反码"></a>反码</h4><ul>
+<li>负数的反码 &#x3D; 原码符号位不变，数值位取反。</li>
+</ul>
+<h4 id="移码（阶码）"><a href="#移码（阶码）" class="headerlink" title="移码（阶码）"></a>移码（阶码）</h4><ul>
+<li><strong>定义</strong>：$[x]_{\text{移}} &#x3D; 2^{n-1} + x$（n位），相当于真值加偏置值$2^{n-1}$。</li>
+<li><strong>表示范围</strong>：与补码相同，$[-2^{n-1},\ 2^{n-1}-1]$。</li>
+<li><strong>特殊值</strong>（n位）：<ul>
+<li>$[-2^{n-1}]_{\text{移}} &#x3D; 00\ldots 00$</li>
+<li>$[0]_{\text{移}} &#x3D; 10\ldots 00$（唯一）</li>
+</ul>
+</li>
+</ul>
+<h4 id="习题（选择题）"><a href="#习题（选择题）" class="headerlink" title="习题（选择题）"></a>习题（选择题）</h4><ol>
+<li>对真值0表示形式唯一的编码方式是（B. 补码和移码）</li>
+<li>108对应的十六进制形式是（A. 6CH）</li>
+<li>下列数中最小的数是（计算比较）</li>
+<li>由$[X]<em>{\text{原}}$求$[-X]</em>{\text{原}}$的做法是（B. 符号位取反，其他各位不变）</li>
+<li>由$[X]<em>{\text{补}}$求$[-X]</em>{\text{补}}$的做法是（D. 连同符号位一起取反，末位+1）</li>
+<li>关于补码和移码关系的叙述错误的是（B. 0的补码和移码表示相同）</li>
+<li>给定$X&#x3D;-01001010B$，机器数10110110B，判断编码方式（C. 补码）</li>
+<li>8位补码，-26的机器数为（C. E6H）</li>
+<li>9BH对应的十进制数为（C. -101）</li>
+</ol>
+<hr>
+<h2 id="2-2-整数的表示"><a href="#2-2-整数的表示" class="headerlink" title="2.2 整数的表示"></a>2.2 整数的表示</h2><h3 id="2-2-1-无符号整数的表示"><a href="#2-2-1-无符号整数的表示" class="headerlink" title="2.2.1 无符号整数的表示"></a>2.2.1 无符号整数的表示</h3><ul>
+<li>所有位均表示数值，没有符号位。</li>
+<li>n位表示范围：$[0,\ 2^n-1]$。</li>
+</ul>
+<h3 id="2-2-2-带符号整数的表示"><a href="#2-2-2-带符号整数的表示" class="headerlink" title="2.2.2 带符号整数的表示"></a>2.2.2 带符号整数的表示</h3><ul>
+<li>现代计算机采用<strong>补码</strong>表示带符号整数，原因：<ul>
+<li>0的表示唯一。</li>
+<li>加减运算统一为加法，符号位与数值位一起运算。</li>
+<li>可多表示一个最小负数。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-3-零扩展与符号扩展"><a href="#2-2-3-零扩展与符号扩展" class="headerlink" title="2.2.3 零扩展与符号扩展"></a>2.2.3 零扩展与符号扩展</h3><ul>
+<li><strong>零扩展</strong>：高位补0（适用于无符号数）。</li>
+<li><strong>符号扩展</strong>：高位补符号位（适用于有符号数补码表示）。<ul>
+<li>正数补0，负数补1。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-4-C语言中的整数类型"><a href="#2-2-4-C语言中的整数类型" class="headerlink" title="2.2.4 C语言中的整数类型"></a>2.2.4 C语言中的整数类型</h3><h4 id="基本类型（32位环境）"><a href="#基本类型（32位环境）" class="headerlink" title="基本类型（32位环境）"></a>基本类型（32位环境）</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>位数</th>
+<th>默认</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>char</td>
+<td>8</td>
+<td>无符号</td>
+<td>0~255</td>
+</tr>
+<tr>
+<td>short</td>
+<td>16</td>
+<td>有符号</td>
+<td>$-2^{15}\sim 2^{15}-1$</td>
+</tr>
+<tr>
+<td>int</td>
+<td>32</td>
+<td>有符号</td>
+<td>$-2^{31}\sim 2^{31}-1$</td>
+</tr>
+<tr>
+<td>unsigned 前缀</td>
+<td>同长度</td>
+<td>无符号</td>
+<td>相应范围</td>
+</tr>
+</tbody></table>
+<h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><ul>
+<li><strong>同长度转换</strong>（如有符号↔无符号）：不改变机器数，只改变解释方式。</li>
+<li><strong>不同长度转换</strong>：<ul>
+<li>低→高：有符号数进行符号扩展，无符号数进行零扩展。</li>
+<li>高→低：直接截断高位。</li>
+</ul>
+</li>
+</ul>
+<h4 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h4><ol>
+<li>-1029的16位补码十六进制为（D. FBFBH）</li>
+<li>short si&#x3D;-8196; unsigned short usi&#x3D;si; 则usi的值为（D. 57340）</li>
+<li>X&#x3D;-1011的8位补码为（C. 11110101）</li>
+<li>8位补码$[x]<em>{\text{补}}$，求$[-x]</em>{\text{补}}$时会发生溢出的为（C. 10000000）</li>
+<li>8位移码$[x]<em>{\text{移}}$，求$[-x]</em>{\text{移}}$时会发生溢出的为（A. 11111111）</li>
+<li>通常表示主存地址的是（D. 无符号数）</li>
+<li>unsigned short x&#x3D;65530; unsigned int y&#x3D;x; y的机器数为（B. 0000 FFFAH）</li>
+<li>由3个“1”和5个“0”组成的二进制补码，能表示的最小整数是（A. -126）</li>
+<li>short si&#x3D;-32767; unsigned short usi&#x3D;si; usi的值为（D. 32769）</li>
+<li>冯·诺依曼结构计算机数据采用二进制编码的原因（D. I、II和III）</li>
+<li>unsigned short usi&#x3D;65535; short si&#x3D;usi; si的值为（A. -1）</li>
+</ol>
+<hr>
+<h2 id="2-3-运算方法和运算电路"><a href="#2-3-运算方法和运算电路" class="headerlink" title="2.3 运算方法和运算电路"></a>2.3 运算方法和运算电路</h2><h3 id="2-3-1-定点数的移位运算"><a href="#2-3-1-定点数的移位运算" class="headerlink" title="2.3.1 定点数的移位运算"></a>2.3.1 定点数的移位运算</h3><h4 id="逻辑移位"><a href="#逻辑移位" class="headerlink" title="逻辑移位"></a>逻辑移位</h4><ul>
+<li>将操作数视为无符号数。</li>
+<li><strong>左移</strong>：高位丢弃，低位补0；若移出1则溢出。</li>
+<li><strong>右移</strong>：低位丢弃，高位补0。</li>
+</ul>
+<h4 id="算术移位"><a href="#算术移位" class="headerlink" title="算术移位"></a>算术移位</h4><ul>
+<li>将操作数视为有符号数（补码）。</li>
+<li><strong>左移</strong>：高位丢弃，低位补0；若移位前后符号位不同则溢出。</li>
+<li><strong>右移</strong>：低位丢弃，高位补符号位。</li>
+</ul>
+<hr>
+<h3 id="2-3-2-定点数的运算"><a href="#2-3-2-定点数的运算" class="headerlink" title="2.3.2 定点数的运算"></a>2.3.2 定点数的运算</h3><h4 id="2-3-2-1-补码加减运算"><a href="#2-3-2-1-补码加减运算" class="headerlink" title="2.3.2.1 补码加减运算"></a>2.3.2.1 补码加减运算</h4><h5 id="运算公式"><a href="#运算公式" class="headerlink" title="运算公式"></a>运算公式</h5><ul>
+<li>$[x+y]<em>{\text{补}} &#x3D; [x]</em>{\text{补}} + [y]_{\text{补}} \mod 2^n$</li>
+<li>$[x-y]<em>{\text{补}} &#x3D; [x]</em>{\text{补}} + [-y]_{\text{补}} \mod 2^n$</li>
+<li>求$[-y]<em>{\text{补}}$：将$[y]</em>{\text{补}}$各位取反，末位加1。</li>
+</ul>
+<h5 id="加减运算部件"><a href="#加减运算部件" class="headerlink" title="加减运算部件"></a>加减运算部件</h5><ul>
+<li>输入：$X$、$Y$（n位补码），$Sub$（1位，0加1减）。</li>
+<li>通过多路选择器，当$Sub&#x3D;0$时，直接传$Y$，进位$Cin&#x3D;0$；当$Sub&#x3D;1$时，传$Y$的反码，$Cin&#x3D;1$。</li>
+<li>输出：和$F$，以及四个标志位。</li>
+</ul>
+<h5 id="标志位"><a href="#标志位" class="headerlink" title="标志位"></a>标志位</h5><ul>
+<li><strong>OF</strong>（溢出标志）：$OF &#x3D; C_n \oplus C_{n-1}$（最高位进位与次高位进位异或）。</li>
+<li><strong>SF</strong>（符号标志）：$SF &#x3D; F_n$（结果的最高位）。</li>
+<li><strong>CF</strong>（进位&#x2F;借位标志）：$CF &#x3D; C_{in} \oplus C_{out}$（对无符号数有意义）。</li>
+<li><strong>ZF</strong>（零标志）：$ZF &#x3D; (F &#x3D;&#x3D; 0)$。</li>
+</ul>
+<h5 id="溢出判断"><a href="#溢出判断" class="headerlink" title="溢出判断"></a>溢出判断</h5><ul>
+<li>一位符号位法：$V &#x3D; X_s Y_s \overline{F_s} + \overline{X_s},\overline{Y_s} F_s$</li>
+<li>进位法：$V &#x3D; C_n \oplus C_{n-1}$</li>
+<li>双符号位法：用两位符号位，$00$正无溢出，$01$正溢出，$10$负溢出，$11$负无溢出；$V &#x3D; S_{s1} \oplus S_{s2}$。</li>
+</ul>
+<h5 id="比较大小"><a href="#比较大小" class="headerlink" title="比较大小"></a>比较大小</h5><ul>
+<li><strong>无符号数</strong>：<ul>
+<li>$ZF&#x3D;1$ → $A&#x3D;B$</li>
+<li>$ZF&#x3D;0, CF&#x3D;0$ → $A&gt;B$</li>
+<li>$ZF&#x3D;0, CF&#x3D;1$ → $A&lt;B$</li>
+</ul>
+</li>
+<li><strong>有符号数</strong>：<ul>
+<li>$ZF&#x3D;1$ → $A&#x3D;B$</li>
+<li>$ZF&#x3D;0, OF \oplus SF &#x3D; 0$ → $A&gt;B$</li>
+<li>$ZF&#x3D;0, OF \oplus SF &#x3D; 1$ → $A&lt;B$</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-2-2-定点数的乘法运算（原码）"><a href="#2-3-2-2-定点数的乘法运算（原码）" class="headerlink" title="2.3.2.2 定点数的乘法运算（原码）"></a>2.3.2.2 定点数的乘法运算（原码）</h4><h5 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h5><ul>
+<li>符号位：两乘数符号位异或。</li>
+<li>数值部分：两绝对值相乘（无符号数乘法）。</li>
+</ul>
+<h5 id="计算机实现（迭代算法）"><a href="#计算机实现（迭代算法）" class="headerlink" title="计算机实现（迭代算法）"></a>计算机实现（迭代算法）</h5><ul>
+<li>初始化：部分积$P_0&#x3D;0$，乘数$Y$，被乘数$X$（绝对值）。</li>
+<li>重复n次：<ul>
+<li>若$Y$的最低位为1，则$P_{i+1} &#x3D; (P_i + X) &gt;&gt; 1$（右移一位）；</li>
+<li>若$Y$的最低位为0，则$P_{i+1} &#x3D; P_i &gt;&gt; 1$；</li>
+<li>$Y$同步右移，移出的位丢弃。</li>
+</ul>
+</li>
+<li>最终$P$为乘积的高n位，$Y$为低n位。</li>
+</ul>
+<h5 id="溢出判断-1"><a href="#溢出判断-1" class="headerlink" title="溢出判断"></a>溢出判断</h5><ul>
+<li>有符号数：乘积高n位全相同且等于低n位的符号位，则未溢出。</li>
+<li>无符号数：乘积高n位全0，则未溢出。</li>
+</ul>
+<h4 id="习题（2-3部分）"><a href="#习题（2-3部分）" class="headerlink" title="习题（2.3部分）"></a>习题（2.3部分）</h4><ol>
+<li>8位无符号数10010101右移一位得（A. 0100 1010）</li>
+<li>8位补码10010101右移一位得（D. 1100 1010）</li>
+<li>8位补码10010101扩展为16位十六进制（C. FF95H）</li>
+<li>ALU核心部件是（C. 加法器）</li>
+<li>x&#x3D;69,y&#x3D;38,加法器输入及进位（A. 01000101、00100110、0）</li>
+<li>x-y运算，输入及进位（D. 01000101、11011010、1）</li>
+<li>x&#x3D;-69,y&#x3D;-38,x+y输入及进位（A. 10111011、11011010、0）</li>
+<li>x&#x3D;-69,y&#x3D;-38,x-y输入及进位（C. 10111011、00100101、1）</li>
+<li>x&#x3D;63,y&#x3D;-31,x+y机器数及OF（B. 20H、0）</li>
+<li>[x]&#x3D;F5H,[y]&#x3D;7EH,x+y及OF（A. 115、0）</li>
+<li>7E5H+4D3H&#x3D;（C. CB8H）</li>
+<li>移位运算说法正确的（D. I、II、III）</li>
+<li>x&#x3D;127,y&#x3D;-9,z&#x3D;x+y结果（D. x&#x3D;0000007FH, y&#x3D;FFF7H, z&#x3D;00000076H）</li>
+<li>8位补码乘法溢出判断（B. r2×r3）</li>
+<li>[x]&#x3D;11110100,[y]&#x3D;10110000,z&#x3D;2x+y&#x2F;2机器数为（D. 溢出）</li>
+<li>x&#x3D;103,y&#x3D;-25,补码运算溢出的是（C. x-y）</li>
+<li>x&#x3D;FFFFFFDFH,y&#x3D;00000041H,x-y机器数（C. x&#x3D;-33,y&#x3D;65,机器数为FFFF FF9EH）</li>
+<li>11011000逻辑右移1位和算术右移1位得（B. 01101100、11101100）</li>
+<li>x&#x3D;FFFFFFFFH,y&#x3D;FFFFFFF0H,x-y的CF和OF（A. CF&#x3D;0, OF&#x3D;0）</li>
+</ol>
+<hr>
+<h2 id="2-4-浮点数的表示和运算"><a href="#2-4-浮点数的表示和运算" class="headerlink" title="2.4 浮点数的表示和运算"></a>2.4 浮点数的表示和运算</h2><h3 id="2-4-1-浮点数的表示"><a href="#2-4-1-浮点数的表示" class="headerlink" title="2.4.1 浮点数的表示"></a>2.4.1 浮点数的表示</h3><h4 id="表示格式"><a href="#表示格式" class="headerlink" title="表示格式"></a>表示格式</h4><ul>
+<li><p>任意实数$X &#x3D; (-1)^S \times M \times R^E$</p>
+<ul>
+<li>$S$：符号位（0正1负）</li>
+<li>$M$：尾数（定点小数，通常用原码）</li>
+<li>$E$：阶码（定点整数，通常用移码）</li>
+<li>$R$：基数（通常为2）</li>
+</ul>
+</li>
+<li><p>浮点数格式由$S$、$E$、$M$的位数和编码方式决定。</p>
+</li>
+<li><p>阶码位数决定表示范围，尾数位数决定精度。</p>
+</li>
+</ul>
+<h4 id="表示范围"><a href="#表示范围" class="headerlink" title="表示范围"></a>表示范围</h4><ul>
+<li>数轴对称，有上溢区、下溢区。</li>
+<li><strong>机器零</strong>：尾数为0时，通常将阶码也置0来唯一表示0。</li>
+</ul>
+<h4 id="规格化"><a href="#规格化" class="headerlink" title="规格化"></a>规格化</h4><ul>
+<li>目的：使尾数最高位不为0，尽可能保留有效数字。</li>
+<li><strong>左规</strong>：尾数最高位为0时，尾数左移，阶码减1（可多次）。</li>
+<li><strong>右规</strong>：尾数有效位进到小数点前时，尾数右移，阶码加1（最多一次）。</li>
+</ul>
+<h3 id="2-4-1-3-IEEE754标准"><a href="#2-4-1-3-IEEE754标准" class="headerlink" title="2.4.1.3 IEEE754标准"></a>2.4.1.3 IEEE754标准</h3><h4 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h4><ul>
+<li><strong>单精度（float）</strong>：1位符号 + 8位阶码 + 23位尾数，偏置值127。</li>
+<li><strong>双精度（double）</strong>：1位符号 + 11位阶码 + 52位尾数，偏置值1023。</li>
+</ul>
+<h4 id="尾数隐藏位"><a href="#尾数隐藏位" class="headerlink" title="尾数隐藏位"></a>尾数隐藏位</h4><ul>
+<li>规格化浮点数尾数最高位恒为1，IEEE754将其隐藏，因此实际尾数有效位为1.f（f为23&#x2F;52位小数部分）。</li>
+<li>真值：$(-1)^s \times 1.f \times 2^{e - \text{bias}}$。</li>
+</ul>
+<h4 id="阶码范围"><a href="#阶码范围" class="headerlink" title="阶码范围"></a>阶码范围</h4><ul>
+<li>单精度：e&#x3D;1~254（全0和全1有特殊含义）。</li>
+<li>双精度：e&#x3D;1~2046。</li>
+</ul>
+<h4 id="特殊值"><a href="#特殊值" class="headerlink" title="特殊值"></a>特殊值</h4><table>
+<thead>
+<tr>
+<th>情况</th>
+<th>符号</th>
+<th>阶码</th>
+<th>尾数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>-0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>-0</td>
+</tr>
+<tr>
+<td>+∞</td>
+<td>0</td>
+<td>全1</td>
+<td>0</td>
+<td>+∞</td>
+</tr>
+<tr>
+<td>-∞</td>
+<td>1</td>
+<td>全1</td>
+<td>0</td>
+<td>-∞</td>
+</tr>
+<tr>
+<td>NaN</td>
+<td>0&#x2F;1</td>
+<td>全1</td>
+<td>≠0</td>
+<td>NaN（非数）</td>
+</tr>
+<tr>
+<td>非规格化数</td>
+<td>0&#x2F;1</td>
+<td>0</td>
+<td>≠0</td>
+<td>$\pm 2^{-126}\times 0.f$（单精度）</td>
+</tr>
+</tbody></table>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><ul>
+<li>将-0.75转换为IEEE754单精度：$(-0.75)_{10} &#x3D; (-0.11)_2 &#x3D; -1.1\times 2^{-1}$，则$s&#x3D;1$，$e&#x3D;127-1&#x3D;126&#x3D;01111110_2$，$f&#x3D;1000…0$，结果为$1\ 01111110\ 1000…0$，即BF400000H。</li>
+<li>求COA00000H的值：二进制$1\ 10000001\ 0100000…0$，$e&#x3D;129$，$E&#x3D;129-127&#x3D;2$，$f&#x3D;0.01_2$，$1.f&#x3D;1.01_2&#x3D;1.25$，真值$&#x3D;-1.25\times 2^2&#x3D;-5$。</li>
+</ul>
+<hr>
+<h3 id="2-4-2-浮点数的加减运算"><a href="#2-4-2-浮点数的加减运算" class="headerlink" title="2.4.2 浮点数的加减运算"></a>2.4.2 浮点数的加减运算</h3><h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ol>
+<li><strong>对阶</strong>：小阶向大阶看齐，尾数右移，阶码增加，右移位数&#x3D;阶差。</li>
+<li><strong>尾数加减</strong>：隐藏位、保留位一起参与运算。</li>
+<li><strong>规格化</strong>：<ul>
+<li>若尾数出现进位到整数位（如$1.b… + 1.b… &#x3D; 1b…$），则右规一次。</li>
+<li>若尾数出现$0.0…01b…$，则左规直到最高位为1。</li>
+</ul>
+</li>
+<li><strong>舍入</strong>：对阶或右规时移出的低位保留，运算后按规则舍入（0舍1入、恒置1、截断）。</li>
+<li><strong>溢出判断</strong>：阶码超出范围则溢出（上溢置无穷，下溢置0）。</li>
+</ol>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ul>
+<li>右规前需检查阶码是否已为全1，避免上溢。</li>
+<li>左规前需检查阶码是否已为全0，避免下溢。</li>
+</ul>
+<hr>
+<h3 id="2-4-3-C语言中的浮点数类型"><a href="#2-4-3-C语言中的浮点数类型" class="headerlink" title="2.4.3 C语言中的浮点数类型"></a>2.4.3 C语言中的浮点数类型</h3><ul>
+<li><strong>float</strong> ↔ <strong>double</strong>：转换可能引起精度变化。</li>
+<li><strong>int</strong> → <strong>float</strong>：范围可能增大，精度可能下降（24位有效数字 vs 31位）。</li>
+<li><strong>float</strong> → <strong>int</strong>：截断小数部分，可能溢出。</li>
+</ul>
+<h3 id="2-4-4-数据的大小端存储"><a href="#2-4-4-数据的大小端存储" class="headerlink" title="2.4.4 数据的大小端存储"></a>2.4.4 数据的大小端存储</h3><ul>
+<li><strong>大端</strong>：低地址存高位字节（MSB）。</li>
+<li><strong>小端</strong>：低地址存低位字节（LSB）。</li>
+</ul>
+<p>例：32位整数01234567H存储：</p>
+<ul>
+<li>大端：地址递增存放01,23,45,67</li>
+<li>小端：地址递增存放67,45,23,01</li>
+</ul>
+<hr>
+<h3 id="习题（2-4部分）"><a href="#习题（2-4部分）" class="headerlink" title="习题（2.4部分）"></a>习题（2.4部分）</h3><ol>
+<li>IEEE754单精度41A4C000H对应十进制（20.59375）</li>
+<li>x&#x3D;-8.25的IEEE754单精度表示为（C104 0000H）</li>
+<li>float能表示的最大正整数是（$2^{127}-2^{103}$）</li>
+<li>C6400000H对应的数值（$-1.5\times 2^{13}$）</li>
+<li>(f1)&#x3D;CC900000H, (f2)&#x3D;B0C00000H，x和y关系（x&lt;y且符号相同）</li>
+<li>小端方式，double型1122334455667788H存放在0000 8040H开始，8046H存放（77H）</li>
+<li>IEEE754单精度最小规格化正数是（$1.0\times 2^{-126}$）</li>
+<li>小端方式，int i&#x3D;0对应C745FC00000000，则int i&#x3D;-64对应（C745FCFFFFC0）</li>
+<li>机器数为C8000000H，可能的值（$-7\times 2^{27}$）</li>
+</ol>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/06/20/CO/3%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/">存储系统</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/06/18/CO/1%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA/">计算机系统概论</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>Aki’s Digital Garden | <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">赣ICP备2025075264号-1</a> | <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/image/gongan.png" alt="公安备案图标" style="width:20px; height:20px; vertical-align:middle; margin-right:4px;"><a target="_blank" rel="noopener" href="https://beian.mps.gov.cn/#/query/webSearch">赣公网安备36020002000627号</a><br>Built with Stellar · CC BY-NC-SA 4.0 · Attribution required</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%95%B0%E5%88%B6%E4%B8%8E%E7%BC%96%E7%A0%81"><span class="toc-text">2.1 数制与编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-%E4%BF%A1%E6%81%AF%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%BC%96%E7%A0%81"><span class="toc-text">2.1.1 信息的二进制编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-%E8%BF%9B%E4%BD%8D%E8%AE%A1%E6%95%B0%E5%88%B6"><span class="toc-text">2.1.2 进位计数制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="toc-text">进制转换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-3-%E5%AE%9A%E7%82%B9%E6%95%B0%E7%9A%84%E7%BC%96%E7%A0%81%E8%A1%A8%E7%A4%BA"><span class="toc-text">2.1.3 定点数的编码表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9C%9F%E5%80%BC%E4%B8%8E%E6%9C%BA%E5%99%A8%E6%95%B0"><span class="toc-text">真值与机器数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E7%82%B9%E8%A1%A8%E7%A4%BA"><span class="toc-text">定点表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81"><span class="toc-text">原码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81"><span class="toc-text">补码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E7%A0%81"><span class="toc-text">反码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E7%A0%81%EF%BC%88%E9%98%B6%E7%A0%81%EF%BC%89"><span class="toc-text">移码（阶码）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98%EF%BC%88%E9%80%89%E6%8B%A9%E9%A2%98%EF%BC%89"><span class="toc-text">习题（选择题）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%95%B4%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-text">2.2 整数的表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-text">2.2.1 无符号整数的表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E5%B8%A6%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-text">2.2.2 带符号整数的表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-%E9%9B%B6%E6%89%A9%E5%B1%95%E4%B8%8E%E7%AC%A6%E5%8F%B7%E6%89%A9%E5%B1%95"><span class="toc-text">2.2.3 零扩展与符号扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-4-C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.2.4 C语言中的整数类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%EF%BC%8832%E4%BD%8D%E7%8E%AF%E5%A2%83%EF%BC%89"><span class="toc-text">基本类型（32位环境）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98"><span class="toc-text">习题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E8%BF%90%E7%AE%97%E6%96%B9%E6%B3%95%E5%92%8C%E8%BF%90%E7%AE%97%E7%94%B5%E8%B7%AF"><span class="toc-text">2.3 运算方法和运算电路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E5%AE%9A%E7%82%B9%E6%95%B0%E7%9A%84%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-text">2.3.1 定点数的移位运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E7%A7%BB%E4%BD%8D"><span class="toc-text">逻辑移位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E7%A7%BB%E4%BD%8D"><span class="toc-text">算术移位</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-%E5%AE%9A%E7%82%B9%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-text">2.3.2 定点数的运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-1-%E8%A1%A5%E7%A0%81%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97"><span class="toc-text">2.3.2.1 补码加减运算</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="toc-text">运算公式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97%E9%83%A8%E4%BB%B6"><span class="toc-text">加减运算部件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="toc-text">标志位</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD"><span class="toc-text">溢出判断</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E5%A4%A7%E5%B0%8F"><span class="toc-text">比较大小</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-2-%E5%AE%9A%E7%82%B9%E6%95%B0%E7%9A%84%E4%B9%98%E6%B3%95%E8%BF%90%E7%AE%97%EF%BC%88%E5%8E%9F%E7%A0%81%EF%BC%89"><span class="toc-text">2.3.2.2 定点数的乘法运算（原码）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%9E%E7%8E%B0%EF%BC%88%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95%EF%BC%89"><span class="toc-text">计算机实现（迭代算法）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD-1"><span class="toc-text">溢出判断</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98%EF%BC%882-3%E9%83%A8%E5%88%86%EF%BC%89"><span class="toc-text">习题（2.3部分）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%BF%90%E7%AE%97"><span class="toc-text">2.4 浮点数的表示和运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-text">2.4.1 浮点数的表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A8%E7%A4%BA%E6%A0%BC%E5%BC%8F"><span class="toc-text">表示格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A8%E7%A4%BA%E8%8C%83%E5%9B%B4"><span class="toc-text">表示范围</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="toc-text">规格化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-3-IEEE754%E6%A0%87%E5%87%86"><span class="toc-text">2.4.1.3 IEEE754标准</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="toc-text">基本格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%BE%E6%95%B0%E9%9A%90%E8%97%8F%E4%BD%8D"><span class="toc-text">尾数隐藏位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E7%A0%81%E8%8C%83%E5%9B%B4"><span class="toc-text">阶码范围</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%80%BC"><span class="toc-text">特殊值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-2-%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97"><span class="toc-text">2.4.2 浮点数的加减运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-3-C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.4.3 C语言中的浮点数类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-4-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%A7%E5%B0%8F%E7%AB%AF%E5%AD%98%E5%82%A8"><span class="toc-text">2.4.4 数据的大小端存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98%EF%BC%882-4%E9%83%A8%E5%88%86%EF%BC%89"><span class="toc-text">习题（2.4部分）</span></a></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function (response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function (data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function (error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+<!-- required -->
+<script src="/js/main.js?v=1.30.0" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

@@ -1,0 +1,1080 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.30.0" theme-name="Stellar" theme-version="1.30.0">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>指令系统 - Aki</title>
+
+  
+    <meta name="description" content="指令系统全：基本概念、寻址方式、CISC&#x2F;RISC与x86机器级代码表示。 4.1 指令系统的基本概念4.1.1 指令执行过程的描述以取数指令为例，描述指令执行过程：  取指令：$(PC) \to MAR \to M \to MDR \to IR$  将PC的内容送往MAR，MAR内容送地址线。 主存根据地址读出指令送到数据线。 MDR从数据线接收指令，传送到IR。   分析指令：$OP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="指令系统">
+<meta property="og:url" content="http://meetaki.com/2025/06/21/CO/4%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Aki">
+<meta property="og:description" content="指令系统全：基本概念、寻址方式、CISC&#x2F;RISC与x86机器级代码表示。 4.1 指令系统的基本概念4.1.1 指令执行过程的描述以取数指令为例，描述指令执行过程：  取指令：$(PC) \to MAR \to M \to MDR \to IR$  将PC的内容送往MAR，MAR内容送地址线。 主存根据地址读出指令送到数据线。 MDR从数据线接收指令，传送到IR。   分析指令：$OP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-21T13:30:09.000Z">
+<meta property="article:modified_time" content="2026-05-08T14:28:02.426Z">
+<meta property="article:author" content="Aki">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="学习笔记">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.30.0">
+
+
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/xaoxuu/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/xaoxuu/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/xaoxuu/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/xaoxuu/favicon/site.webmanifest"><link rel="shortcut icon" href="/assets/xaoxuu/favicon/favicon.ico"><meta name="theme-color" content="#f8f8f8"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" media="all" />
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://meetaki.oss-cn-guangzhou.aliyuncs.com/img1/20251019221556223.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Aki</div><div class="sub normal cap">Learn to code</div><div class="sub hover cap" style="opacity:0"> Code to learn</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="探索" href="/about/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="currentColor"></circle><path fill="currentColor" d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5" opacity="0.5"></path></svg></a></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/06/23/CO/6%E6%80%BB%E7%BA%BF%E4%B8%8E%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%B3%BB%E7%BB%9F/"><span class="title">总线与输入输出系统</span></a><a class="item title" href="/2025/06/22/CO/5%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8/"><span class="title">中央处理器</span></a><a class="item title" href="/2025/06/21/CO/4%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/"><span class="title">指令系统</span></a><a class="item title" href="/2025/06/20/CO/3%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/"><span class="title">存储系统</span></a><a class="item title" href="/2025/06/19/CO/2%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%BF%90%E7%AE%97/"><span class="title">数据的表示和运算</span></a><a class="item title" href="/2025/06/18/CO/1%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA/"><span class="title">计算机系统概论</span></a><a class="item title" href="/2024/10/20/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%B2%BE%E8%AF%BB/"><span class="title">进程同步精读：信号量与PV操作</span></a><a class="item title" href="/2025/05/26/09_%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/"><span class="title">09_集合与泛型</span></a><a class="item title" href="/2025/05/25/08_%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB/"><span class="title">08_常用工具类</span></a><a class="item title" href="/2025/05/24/07_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"><span class="title">07_异常处理</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/408/">408</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/408/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-06-21T13:30:09.000Z">2025-06-21</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-08T14:28:02.426Z">2026-05-08</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>指令系统</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>指令系统全：基本概念、寻址方式、CISC&#x2F;RISC与x86机器级代码表示。</p>
+<h2 id="4-1-指令系统的基本概念"><a href="#4-1-指令系统的基本概念" class="headerlink" title="4.1 指令系统的基本概念"></a>4.1 指令系统的基本概念</h2><h3 id="4-1-1-指令执行过程的描述"><a href="#4-1-1-指令执行过程的描述" class="headerlink" title="4.1.1 指令执行过程的描述"></a>4.1.1 指令执行过程的描述</h3><p>以取数指令为例，描述指令执行过程：</p>
+<ol>
+<li><p><strong>取指令</strong>：$(PC) \to MAR \to M \to MDR \to IR$</p>
+<ul>
+<li>将PC的内容送往MAR，MAR内容送地址线。</li>
+<li>主存根据地址读出指令送到数据线。</li>
+<li>MDR从数据线接收指令，传送到IR。</li>
+</ul>
+</li>
+<li><p><strong>分析指令</strong>：$OP(IR) \to CU$</p>
+<ul>
+<li>将IR中指令的操作码部分送控制器进行译码。</li>
+</ul>
+</li>
+<li><p><strong>执行指令</strong>：$AD(IR) \to MAR \to M \to MDR \to ACC$</p>
+<ul>
+<li>将IR中的地址码送MAR。</li>
+<li>主存根据地址取出操作数，经MDR传送到ACC。</li>
+</ul>
+</li>
+<li><p><strong>更新PC</strong>：$(PC) + 1 \to PC$，计算下一条指令地址。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<ul>
+<li>括号表示寄存器中的内容，箭头左边需加括号，右边不加。</li>
+<li>多个箭头时，除第一个寄存器外，其余可省略括号。</li>
+<li>若要求每条语句只描述一次传输，需严格使用括号。</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="4-1-2-指令集体系结构-ISA"><a href="#4-1-2-指令集体系结构-ISA" class="headerlink" title="4.1.2 指令集体系结构 (ISA)"></a>4.1.2 指令集体系结构 (ISA)</h3><p>指令系统是ISA的核心部分，ISA定义了软件与硬件的接口，包括：</p>
+<ul>
+<li>指令格式、寻址方式、操作类型。</li>
+<li>操作数类型、存放方式（大端&#x2F;小端）。</li>
+<li>可访问的寄存器、存储空间编址。</li>
+<li>指令执行控制方式（PC、条件码等）。</li>
+</ul>
+<hr>
+<h3 id="4-1-3-指令的基本格式"><a href="#4-1-3-指令的基本格式" class="headerlink" title="4.1.3 指令的基本格式"></a>4.1.3 指令的基本格式</h3><p>指令由<strong>操作码</strong>和<strong>地址码</strong>组成：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作码</td>
+<td>指出指令执行的操作</td>
+</tr>
+<tr>
+<td>地址码</td>
+<td>给出操作数或操作数地址</td>
+</tr>
+</tbody></table>
+<h4 id="指令字长"><a href="#指令字长" class="headerlink" title="指令字长"></a>指令字长</h4><ul>
+<li>与机器字长无固定关系，可为单字长、半字长、双字长。</li>
+<li>定长指令字：所有指令长度相等。</li>
+<li>变长指令字：指令长度随功能变化。</li>
+</ul>
+<h4 id="按地址码数量分类"><a href="#按地址码数量分类" class="headerlink" title="按地址码数量分类"></a>按地址码数量分类</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>格式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>零地址</td>
+<td><code>OP</code></td>
+<td>无操作数（如空操作）或隐含操作数（如堆栈）</td>
+</tr>
+<tr>
+<td>一地址</td>
+<td><code>OP A1</code></td>
+<td>单操作数：<code>OP(A1) → A1</code><br>双操作数隐含ACC：<code>(ACC) OP (A1) → ACC</code></td>
+</tr>
+<tr>
+<td>二地址</td>
+<td><code>OP A1, A2</code></td>
+<td><code>(A1) OP (A2) → A1</code></td>
+</tr>
+<tr>
+<td>三地址</td>
+<td><code>OP A1, A2, A3</code></td>
+<td><code>(A1) OP (A2) → A3</code></td>
+</tr>
+<tr>
+<td>四地址</td>
+<td><code>OP A1, A2, A3, A4</code></td>
+<td><code>(A1) OP (A2) → A3</code>，A4为下一条指令地址</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="4-1-4-可变长度操作码（扩展操作码）"><a href="#4-1-4-可变长度操作码（扩展操作码）" class="headerlink" title="4.1.4 可变长度操作码（扩展操作码）"></a>4.1.4 可变长度操作码（扩展操作码）</h3><ul>
+<li>通过减少地址码位数来增加操作码位数。</li>
+<li><strong>规定</strong>：短码不能是长码的前缀，操作码不可重复。</li>
+</ul>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p>指令字长16位，地址码4位：</p>
+<ul>
+<li>三地址指令：15条（1111留作扩展）</li>
+<li>二地址指令：15条（1111 1111留作扩展）</li>
+<li>一地址指令：15条（1111 1111 1111留作扩展）</li>
+<li>零地址指令：16条</li>
+</ul>
+<h4 id="典型例题"><a href="#典型例题" class="headerlink" title="典型例题"></a>典型例题</h4><blockquote>
+<p>设指令字长16位，地址码6位。二地址指令15条，一地址指令34条，求零地址指令最多多少条？</p>
+</blockquote>
+<p><strong>解法</strong>：</p>
+<ul>
+<li>二地址：操作码4位，0000~1110共15条。</li>
+<li>一地址：操作码10位，最高4位为1111，剩余6位，最多64条。用其中34条（如11110 00000 ~ 11111 00001）。</li>
+<li>零地址：操作码16位，最高5位为11111，次5位为00010~11111（30种），低6位任意，共 $30 \times 2^6$ 条。</li>
+</ul>
+<hr>
+<h2 id="4-2-指令的寻址方式"><a href="#4-2-指令的寻址方式" class="headerlink" title="4.2 指令的寻址方式"></a>4.2 指令的寻址方式</h2><h3 id="4-2-1-形式地址与有效地址"><a href="#4-2-1-形式地址与有效地址" class="headerlink" title="4.2.1 形式地址与有效地址"></a>4.2.1 形式地址与有效地址</h3><ul>
+<li>**形式地址 (A)**：指令中给出的地址码。</li>
+<li>**有效地址 (EA)**：操作数在存储器中的真实地址。</li>
+</ul>
+<h3 id="4-2-2-常见寻址方式"><a href="#4-2-2-常见寻址方式" class="headerlink" title="4.2.2 常见寻址方式"></a>4.2.2 常见寻址方式</h3><table>
+<thead>
+<tr>
+<th>寻址方式</th>
+<th>有效地址 EA</th>
+<th>访存次数</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>隐含寻址</td>
+<td>隐含（如ACC）</td>
+<td>0</td>
+<td>缩短指令字长</td>
+</tr>
+<tr>
+<td>立即寻址</td>
+<td>A 即操作数</td>
+<td>0</td>
+<td>速度快，但立即数范围受限</td>
+</tr>
+<tr>
+<td>直接寻址</td>
+<td>EA &#x3D; A</td>
+<td>1</td>
+<td>简单，但寻址范围小</td>
+</tr>
+<tr>
+<td>间接寻址</td>
+<td>EA &#x3D; (A)</td>
+<td>2（一级）</td>
+<td>扩大寻址范围</td>
+</tr>
+<tr>
+<td>寄存器寻址</td>
+<td>EA &#x3D; Ri</td>
+<td>0</td>
+<td>速度快，寄存器有限</td>
+</tr>
+<tr>
+<td>寄存器间接寻址</td>
+<td>EA &#x3D; (Ri)</td>
+<td>1</td>
+<td>扩大范围，速度快</td>
+</tr>
+<tr>
+<td>相对寻址</td>
+<td>EA &#x3D; (PC) + A</td>
+<td>1</td>
+<td>用于转移指令，程序浮动</td>
+</tr>
+<tr>
+<td>基址寻址</td>
+<td>EA &#x3D; (BR) + A</td>
+<td>1</td>
+<td>面向OS，动态重定位</td>
+</tr>
+<tr>
+<td>变址寻址</td>
+<td>EA &#x3D; (IX) + A</td>
+<td>1</td>
+<td>面向用户，数组访问</td>
+</tr>
+<tr>
+<td>堆栈寻址</td>
+<td>隐含 SP</td>
+<td>0&#x2F;1</td>
+<td>栈操作</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>基址与变址对比</strong>：</p>
+<ul>
+<li><strong>基址</strong>：BR不变，A可变（偏移量），面向系统。</li>
+<li><strong>变址</strong>：IX可变，A不变（基地址），面向用户。</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="4-3-CISC-与-RISC-的基本概念"><a href="#4-3-CISC-与-RISC-的基本概念" class="headerlink" title="4.3 CISC 与 RISC 的基本概念"></a>4.3 CISC 与 RISC 的基本概念</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>CISC</th>
+<th>RISC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>指令数量</td>
+<td>多（&gt;200）</td>
+<td>少</td>
+</tr>
+<tr>
+<td>指令长度</td>
+<td>不固定</td>
+<td>固定</td>
+</tr>
+<tr>
+<td>指令格式</td>
+<td>多</td>
+<td>少</td>
+</tr>
+<tr>
+<td>寻址方式</td>
+<td>多</td>
+<td>少</td>
+</tr>
+<tr>
+<td>访存指令</td>
+<td>不受限</td>
+<td>仅 LOAD&#x2F;STORE</td>
+</tr>
+<tr>
+<td>通用寄存器</td>
+<td>较少</td>
+<td>多</td>
+</tr>
+<tr>
+<td>控制器</td>
+<td>微程序</td>
+<td>硬布线</td>
+</tr>
+<tr>
+<td>流水线</td>
+<td>难实现</td>
+<td>必须支持</td>
+</tr>
+<tr>
+<td>指令执行时间</td>
+<td>相差大</td>
+<td>大多单周期</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4-4-程序的机器级代码表示（x86）"><a href="#4-4-程序的机器级代码表示（x86）" class="headerlink" title="4.4 程序的机器级代码表示（x86）"></a>4.4 程序的机器级代码表示（x86）</h2><h3 id="4-4-1-常用汇编指令"><a href="#4-4-1-常用汇编指令" class="headerlink" title="4.4.1 常用汇编指令"></a>4.4.1 常用汇编指令</h3><h4 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h4><ul>
+<li>32位通用寄存器：EAX, EBX, ECX, EDX, ESI, EDI, EBP, ESP</li>
+<li>低16位：AX, BX, CX, DX</li>
+<li>8位：AH&#x2F;AL, BH&#x2F;BL, CH&#x2F;CL, DH&#x2F;DL</li>
+<li>ESP（栈指针），EBP（基址指针）</li>
+</ul>
+<h4 id="指令格式（Intel风格）"><a href="#指令格式（Intel风格）" class="headerlink" title="指令格式（Intel风格）"></a>指令格式（Intel风格）</h4><ul>
+<li>目标操作数在前，源操作数在后。</li>
+<li>内存寻址用 <code>[]</code>，如 <code>[eax + ebx*2 + 8]</code>。</li>
+<li>数据长度：<code>byte ptr</code>、<code>word ptr</code>、<code>dword ptr</code>。</li>
+</ul>
+<h4 id="数据传送指令"><a href="#数据传送指令" class="headerlink" title="数据传送指令"></a>数据传送指令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov eax, ebx          ; ebx → eax</span><br><span class="line">mov byte ptr [var], 5 ; 5 → var指向的字节</span><br><span class="line">push eax              ; eax入栈</span><br><span class="line">pop eax               ; 栈顶 → eax</span><br></pre></td></tr></table></figure>
+
+<h4 id="算术与逻辑指令"><a href="#算术与逻辑指令" class="headerlink" title="算术与逻辑指令"></a>算术与逻辑指令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">add eax, ebx          ; eax + ebx → eax</span><br><span class="line">sub eax, 10           ; eax - 10 → eax</span><br><span class="line">inc eax               ; eax++</span><br><span class="line">dec dword ptr [var]   ; var指向的4字节自减1</span><br><span class="line">imul eax, [var]       ; eax * [var] → eax</span><br><span class="line">imul esi, edi, 25     ; 25 * edi → esi</span><br><span class="line">idiv ebx              ; edx:eax / ebx → eax商, edx余数</span><br><span class="line">and eax, 0Fh          ; 保留低4位</span><br><span class="line">xor edx, edx          ; edx清零</span><br><span class="line">shl eax, 1            ; 左移1位</span><br><span class="line">shr ebx, cl           ; 右移cl位</span><br></pre></td></tr></table></figure>
+
+<h4 id="控制流指令"><a href="#控制流指令" class="headerlink" title="控制流指令"></a>控制流指令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">label:                ; 标签</span><br><span class="line">jmp label             ; 无条件跳转</span><br><span class="line">cmp eax, ebx          ; 比较，设置条件码</span><br><span class="line">je done               ; 相等则跳转</span><br><span class="line">jne done              ; 不等则跳转</span><br><span class="line">jg / jge / jl / jle   ; 大于/大于等于/小于/小于等于</span><br><span class="line">call func             ; 调用子程序</span><br><span class="line">ret                   ; 返回</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="4-4-2-选择语句的机器级表示"><a href="#4-4-2-选择语句的机器级表示" class="headerlink" title="4.4.2 选择语句的机器级表示"></a>4.4.2 选择语句的机器级表示</h3><p>C语言 if-else 结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (op1 == op2) &#123;</span><br><span class="line">    X = <span class="number">1</span>; Y = <span class="number">2</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    X = <span class="number">3</span>; Y = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应汇编：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mov eax, op1</span><br><span class="line">cmp eax, op2</span><br><span class="line">jne L1</span><br><span class="line">mov X, 1</span><br><span class="line">mov Y, 2</span><br><span class="line">jmp L2</span><br><span class="line">L1:</span><br><span class="line">mov X, 3</span><br><span class="line">mov Y, 4</span><br><span class="line">L2:</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="4-4-3-循环语句的机器级表示"><a href="#4-4-3-循环语句的机器级表示" class="headerlink" title="4.4.3 循环语句的机器级表示"></a>4.4.3 循环语句的机器级表示</h3><p>编译器将 <code>for</code>&#x2F;<code>while</code> 转换为 <code>do-while</code> 形式。</p>
+<h4 id="示例：自然数求和"><a href="#示例：自然数求和" class="headerlink" title="示例：自然数求和"></a>示例：自然数求和</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>转换为 <code>do-while</code> 形式后，对应汇编：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mov eax, 0        ; sum = 0</span><br><span class="line">mov edx, 0        ; i = 0</span><br><span class="line">cmp edx, ecx      ; 比较 i 和 n (n在ecx)</span><br><span class="line">jg L2             ; if i &gt; n, 跳转</span><br><span class="line">L1:</span><br><span class="line">add eax, edx      ; sum += i</span><br><span class="line">add edx, 1        ; i++</span><br><span class="line">cmp edx, ecx      ; 比较 i 和 n</span><br><span class="line">jle L1            ; if i &lt;= n, 继续循环</span><br><span class="line">L2:</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="4-4-4-过程调用的机器级表示"><a href="#4-4-4-过程调用的机器级表示" class="headerlink" title="4.4.4 过程调用的机器级表示"></a>4.4.4 过程调用的机器级表示</h3><h4 id="调用过程（P调用Q）"><a href="#调用过程（P调用Q）" class="headerlink" title="调用过程（P调用Q）"></a>调用过程（P调用Q）</h4><ol>
+<li>P将参数放到Q能访问的位置。</li>
+<li>P保存返回地址，<code>call Q</code> 转移控制。</li>
+<li>Q保存P的现场（被调用者保存寄存器）。</li>
+<li>Q分配局部变量空间。</li>
+<li>执行Q。</li>
+<li>Q恢复现场，将返回值放入 <code>eax</code>。</li>
+<li><code>ret</code> 返回P。</li>
+</ol>
+<h4 id="调用者保存与被调用者保存"><a href="#调用者保存与被调用者保存" class="headerlink" title="调用者保存与被调用者保存"></a>调用者保存与被调用者保存</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>寄存器</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>调用者保存</td>
+<td>EAX, ECX, EDX</td>
+<td>调用者负责保存和恢复</td>
+</tr>
+<tr>
+<td>被调用者保存</td>
+<td>EBX, ESI, EDI</td>
+<td>被调用者负责保存和恢复</td>
+</tr>
+</tbody></table>
+<h4 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h4><ul>
+<li><strong>EBP</strong>：当前过程栈帧基址（固定）</li>
+<li><strong>ESP</strong>：栈顶指针（动态变化）</li>
+<li>栈向低地址增长</li>
+</ul>
+<h4 id="示例：过程调用与栈帧"><a href="#示例：过程调用与栈帧" class="headerlink" title="示例：过程调用与栈帧"></a>示例：过程调用与栈帧</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123; <span class="keyword">return</span> x + y; &#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">caller</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> temp1 = <span class="number">125</span>, temp2 = <span class="number">80</span>;</span><br><span class="line">    <span class="type">int</span> sum = add(temp1, temp2);</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>汇编实现（caller部分）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">caller:</span><br><span class="line">push ebp                ; 保存上一栈底</span><br><span class="line">mov ebp, esp            ; 设置新栈底</span><br><span class="line">sub esp, 24             ; 分配24字节空间</span><br><span class="line">mov [ebp-12], 125       ; temp1</span><br><span class="line">mov [ebp-8], 80         ; temp2</span><br><span class="line">mov eax, [ebp-8]        ; temp2 → eax</span><br><span class="line">mov [esp+4], eax        ; 参数2入栈</span><br><span class="line">mov eax, [ebp-12]       ; temp1 → eax</span><br><span class="line">mov [esp], eax          ; 参数1入栈</span><br><span class="line">call add                ; 调用add，返回值在eax</span><br><span class="line">mov [ebp-4], eax        ; 返回值存入sum</span><br><span class="line">mov eax, [ebp-4]        ; sum → eax（返回值）</span><br><span class="line">leave                   ; 恢复栈帧</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
+
+<h4 id="栈帧结构示意"><a href="#栈帧结构示意" class="headerlink" title="栈帧结构示意"></a>栈帧结构示意</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">高地址</span><br><span class="line">+-----------------+</span><br><span class="line">| 调用者栈帧       |</span><br><span class="line">+-----------------+ ← ebp (调用者)</span><br><span class="line">| 返回地址        |</span><br><span class="line">+-----------------+</span><br><span class="line">| 保存的ebp       | ← ebp (caller)</span><br><span class="line">+-----------------+</span><br><span class="line">| 局部变量        |</span><br><span class="line">| ...             |</span><br><span class="line">+-----------------+ ← esp</span><br><span class="line">低地址</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="备考tips"><a href="#备考tips" class="headerlink" title="备考tips"></a>备考tips</h2><ul>
+<li><strong>指令执行过程</strong>：重点关注微操作序列与数据通路结合题。</li>
+<li><strong>扩展操作码</strong>：掌握计算最大指令数的方法。</li>
+<li><strong>寻址方式</strong>：区分基址与变址，理解有效地址计算。</li>
+<li><strong>CISC vs RISC</strong>：对比记忆，关注RISC特点（LOAD&#x2F;STORE架构）。</li>
+<li><strong>汇编与C对应</strong>：能根据C代码写出关键汇编片段，或反之理解程序逻辑。</li>
+<li><strong>过程调用</strong>：理解栈帧变化、参数传递、返回值存放（eax）。</li>
+</ul>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/06/22/CO/5%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8/">中央处理器</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/06/20/CO/3%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/">存储系统</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>Aki’s Digital Garden | <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">赣ICP备2025075264号-1</a> | <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/image/gongan.png" alt="公安备案图标" style="width:20px; height:20px; vertical-align:middle; margin-right:4px;"><a target="_blank" rel="noopener" href="https://beian.mps.gov.cn/#/query/webSearch">赣公网安备36020002000627号</a><br>Built with Stellar · CC BY-NC-SA 4.0 · Attribution required</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">4.1 指令系统的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-1-%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E7%9A%84%E6%8F%8F%E8%BF%B0"><span class="toc-text">4.1.1 指令执行过程的描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-2-%E6%8C%87%E4%BB%A4%E9%9B%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-ISA"><span class="toc-text">4.1.2 指令集体系结构 (ISA)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-3-%E6%8C%87%E4%BB%A4%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="toc-text">4.1.3 指令的基本格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E5%AD%97%E9%95%BF"><span class="toc-text">指令字长</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E5%9C%B0%E5%9D%80%E7%A0%81%E6%95%B0%E9%87%8F%E5%88%86%E7%B1%BB"><span class="toc-text">按地址码数量分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-4-%E5%8F%AF%E5%8F%98%E9%95%BF%E5%BA%A6%E6%93%8D%E4%BD%9C%E7%A0%81%EF%BC%88%E6%89%A9%E5%B1%95%E6%93%8D%E4%BD%9C%E7%A0%81%EF%BC%89"><span class="toc-text">4.1.4 可变长度操作码（扩展操作码）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-text">示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E4%BE%8B%E9%A2%98"><span class="toc-text">典型例题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E6%8C%87%E4%BB%A4%E7%9A%84%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-text">4.2 指令的寻址方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-1-%E5%BD%A2%E5%BC%8F%E5%9C%B0%E5%9D%80%E4%B8%8E%E6%9C%89%E6%95%88%E5%9C%B0%E5%9D%80"><span class="toc-text">4.2.1 形式地址与有效地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-2-%E5%B8%B8%E8%A7%81%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-text">4.2.2 常见寻址方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-CISC-%E4%B8%8E-RISC-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">4.3 CISC 与 RISC 的基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E4%BB%A3%E7%A0%81%E8%A1%A8%E7%A4%BA%EF%BC%88x86%EF%BC%89"><span class="toc-text">4.4 程序的机器级代码表示（x86）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-1-%E5%B8%B8%E7%94%A8%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="toc-text">4.4.1 常用汇编指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%EF%BC%88Intel%E9%A3%8E%E6%A0%BC%EF%BC%89"><span class="toc-text">指令格式（Intel风格）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="toc-text">数据传送指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E4%B8%8E%E9%80%BB%E8%BE%91%E6%8C%87%E4%BB%A4"><span class="toc-text">算术与逻辑指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E6%8C%87%E4%BB%A4"><span class="toc-text">控制流指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-2-%E9%80%89%E6%8B%A9%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA"><span class="toc-text">4.4.2 选择语句的机器级表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-3-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA"><span class="toc-text">4.4.3 循环语句的机器级表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E8%87%AA%E7%84%B6%E6%95%B0%E6%B1%82%E5%92%8C"><span class="toc-text">示例：自然数求和</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-4-%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA"><span class="toc-text">4.4.4 过程调用的机器级表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B%EF%BC%88P%E8%B0%83%E7%94%A8Q%EF%BC%89"><span class="toc-text">调用过程（P调用Q）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E8%80%85%E4%BF%9D%E5%AD%98%E4%B8%8E%E8%A2%AB%E8%B0%83%E7%94%A8%E8%80%85%E4%BF%9D%E5%AD%98"><span class="toc-text">调用者保存与被调用者保存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%88%E5%B8%A7"><span class="toc-text">栈帧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E4%B8%8E%E6%A0%88%E5%B8%A7"><span class="toc-text">示例：过程调用与栈帧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%88%E5%B8%A7%E7%BB%93%E6%9E%84%E7%A4%BA%E6%84%8F"><span class="toc-text">栈帧结构示意</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%87%E8%80%83tips"><span class="toc-text">备考tips</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function (response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function (data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function (error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+<!-- required -->
+<script src="/js/main.js?v=1.30.0" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

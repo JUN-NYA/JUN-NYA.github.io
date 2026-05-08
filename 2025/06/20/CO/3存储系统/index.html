@@ -1,0 +1,1289 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.30.0" theme-name="Stellar" theme-version="1.30.0">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>存储系统 - Aki</title>
+
+  
+    <meta name="description" content="存储器系统：主存、Cache、虚拟存储器与外部存储层次。 3.1 存储器概述3.1.1 存储器的分类1. 按存储元件分类 半导体存储器：用半导体器件构成。 磁表面存储器：如磁盘、磁带。 光介质存储器：光盘存储器。  2. 按存取方式分类   类型 特点 示例    随机存取存储器(RAM) 按地址访问，访问时间固定且相等 Cache、主存   顺序存储存储器(SAM) 信息按顺序存放和读出，存取时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="存储系统">
+<meta property="og:url" content="http://meetaki.com/2025/06/20/CO/3%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Aki">
+<meta property="og:description" content="存储器系统：主存、Cache、虚拟存储器与外部存储层次。 3.1 存储器概述3.1.1 存储器的分类1. 按存储元件分类 半导体存储器：用半导体器件构成。 磁表面存储器：如磁盘、磁带。 光介质存储器：光盘存储器。  2. 按存取方式分类   类型 特点 示例    随机存取存储器(RAM) 按地址访问，访问时间固定且相等 Cache、主存   顺序存储存储器(SAM) 信息按顺序存放和读出，存取时">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-20T13:30:09.000Z">
+<meta property="article:modified_time" content="2026-05-08T14:27:56.384Z">
+<meta property="article:author" content="Aki">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="学习笔记">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.30.0">
+
+
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/xaoxuu/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/xaoxuu/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/xaoxuu/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/xaoxuu/favicon/site.webmanifest"><link rel="shortcut icon" href="/assets/xaoxuu/favicon/favicon.ico"><meta name="theme-color" content="#f8f8f8"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" media="all" />
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://meetaki.oss-cn-guangzhou.aliyuncs.com/img1/20251019221556223.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Aki</div><div class="sub normal cap">Learn to code</div><div class="sub hover cap" style="opacity:0"> Code to learn</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="探索" href="/about/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="currentColor"></circle><path fill="currentColor" d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5" opacity="0.5"></path></svg></a></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/06/23/CO/6%E6%80%BB%E7%BA%BF%E4%B8%8E%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%B3%BB%E7%BB%9F/"><span class="title">总线与输入输出系统</span></a><a class="item title" href="/2025/06/22/CO/5%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8/"><span class="title">中央处理器</span></a><a class="item title" href="/2025/06/21/CO/4%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/"><span class="title">指令系统</span></a><a class="item title" href="/2025/06/20/CO/3%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/"><span class="title">存储系统</span></a><a class="item title" href="/2025/06/19/CO/2%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%BF%90%E7%AE%97/"><span class="title">数据的表示和运算</span></a><a class="item title" href="/2025/06/18/CO/1%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA/"><span class="title">计算机系统概论</span></a><a class="item title" href="/2024/10/20/%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%B2%BE%E8%AF%BB/"><span class="title">进程同步精读：信号量与PV操作</span></a><a class="item title" href="/2025/05/26/09_%E9%9B%86%E5%90%88%E4%B8%8E%E6%B3%9B%E5%9E%8B/"><span class="title">09_集合与泛型</span></a><a class="item title" href="/2025/05/25/08_%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB/"><span class="title">08_常用工具类</span></a><a class="item title" href="/2025/05/24/07_%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"><span class="title">07_异常处理</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/408/">408</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/408/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-06-20T13:30:09.000Z">2025-06-20</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-08T14:27:56.384Z">2026-05-08</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>存储系统</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>存储器系统：主存、Cache、虚拟存储器与外部存储层次。</p>
+<h2 id="3-1-存储器概述"><a href="#3-1-存储器概述" class="headerlink" title="3.1 存储器概述"></a>3.1 存储器概述</h2><h3 id="3-1-1-存储器的分类"><a href="#3-1-1-存储器的分类" class="headerlink" title="3.1.1 存储器的分类"></a>3.1.1 存储器的分类</h3><h4 id="1-按存储元件分类"><a href="#1-按存储元件分类" class="headerlink" title="1. 按存储元件分类"></a>1. 按存储元件分类</h4><ul>
+<li><strong>半导体存储器</strong>：用半导体器件构成。</li>
+<li><strong>磁表面存储器</strong>：如磁盘、磁带。</li>
+<li><strong>光介质存储器</strong>：光盘存储器。</li>
+</ul>
+<h4 id="2-按存取方式分类"><a href="#2-按存取方式分类" class="headerlink" title="2. 按存取方式分类"></a>2. 按存取方式分类</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>特点</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>随机存取存储器(RAM)</strong></td>
+<td>按地址访问，访问时间固定且相等</td>
+<td>Cache、主存</td>
+</tr>
+<tr>
+<td><strong>顺序存储存储器(SAM)</strong></td>
+<td>信息按顺序存放和读出，存取时间取决于位置</td>
+<td>磁带存储器</td>
+</tr>
+<tr>
+<td><strong>直接存取存储器(DAM)</strong></td>
+<td>先随机选取区域，再顺序访问</td>
+<td>磁盘存储器</td>
+</tr>
+<tr>
+<td><strong>相联存储器(AM)</strong></td>
+<td>按内容检索，也称按内容访问存储器(CAM)</td>
+<td>快表(TLB)</td>
+</tr>
+</tbody></table>
+<h4 id="3-按信息的可更改性分类"><a href="#3-按信息的可更改性分类" class="headerlink" title="3. 按信息的可更改性分类"></a>3. 按信息的可更改性分类</h4><ul>
+<li><strong>读写存储器</strong>：既能读又能写。</li>
+<li>**只读存储器(ROM)**：通常只读不写，某些情况下可重写。</li>
+</ul>
+<h4 id="4-按断电后信息的可保存性分类"><a href="#4-按断电后信息的可保存性分类" class="headerlink" title="4. 按断电后信息的可保存性分类"></a>4. 按断电后信息的可保存性分类</h4><ul>
+<li><strong>非易失性存储器</strong>：断电后信息保持（ROM、磁表面、光存储器）。</li>
+<li><strong>易失性存储器</strong>：断电后信息丢失（RAM、Cache）。</li>
+</ul>
+<h4 id="5-按功能分类"><a href="#5-按功能分类" class="headerlink" title="5. 按功能分类"></a>5. 按功能分类</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>特点</th>
+<th>速度</th>
+<th>容量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>高速缓冲存储器(Cache)</strong></td>
+<td>位于主存和CPU之间，存放当前常用指令和数据</td>
+<td>最快</td>
+<td>最小</td>
+</tr>
+<tr>
+<td><strong>主存储器(主存)</strong></td>
+<td>CPU可直接随机访问，存放当前运行的程序和数据</td>
+<td>较快</td>
+<td>较小</td>
+</tr>
+<tr>
+<td><strong>辅助存储器(辅存)</strong></td>
+<td>存放暂时不用的程序和数据，需调入主存后才能访问</td>
+<td>最慢</td>
+<td>最大</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="3-1-2-存储器的性能指标"><a href="#3-1-2-存储器的性能指标" class="headerlink" title="3.1.2 存储器的性能指标"></a>3.1.2 存储器的性能指标</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>存储容量</strong></td>
+<td>存储字数 × 存储字长</td>
+</tr>
+<tr>
+<td><strong>单位成本</strong></td>
+<td>总成本 &#x2F; 总容量</td>
+</tr>
+<tr>
+<td><strong>存取时间($T_a$)</strong></td>
+<td>启动一次存储器操作到完成所需时间</td>
+</tr>
+<tr>
+<td><strong>存取周期($T_m$)</strong></td>
+<td>存储器连续读写操作允许的最短间隔时间，$T_m &#x3D; T_a +$ 附加时间</td>
+</tr>
+<tr>
+<td><strong>主存带宽(B)</strong></td>
+<td>数据传输速率，单位：字&#x2F;秒、B&#x2F;s、b&#x2F;s</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="3-1-3-层次化存储器的基本结构"><a href="#3-1-3-层次化存储器的基本结构" class="headerlink" title="3.1.3 层次化存储器的基本结构"></a>3.1.3 层次化存储器的基本结构</h3><ul>
+<li><strong>目的</strong>：兼顾大容量、高速度、低成本。</li>
+<li><strong>层次结构</strong>：<ul>
+<li><strong>Cache-主存层</strong>：解决速度不匹配问题，由硬件自动完成，对所有程序员透明。</li>
+<li><strong>主存-辅存层</strong>：解决容量问题，由硬件和OS共同完成，对应用程序员透明。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CPU → Cache → 主存 → 辅存</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-2-主存储器"><a href="#3-2-主存储器" class="headerlink" title="3.2 主存储器"></a>3.2 主存储器</h2><h3 id="3-2-1-SRAM和DRAM"><a href="#3-2-1-SRAM和DRAM" class="headerlink" title="3.2.1 SRAM和DRAM"></a>3.2.1 SRAM和DRAM</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储元</th>
+<th>特点</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>SRAM</strong></td>
+<td>双稳态触发器</td>
+<td>非破坏性读出，不需刷新，速度快，集成度低，价格高</td>
+<td>Cache</td>
+</tr>
+<tr>
+<td><strong>DRAM</strong></td>
+<td>晶体管</td>
+<td>破坏性读出，需定时刷新，速度慢，集成度高，价格低</td>
+<td>主存</td>
+</tr>
+</tbody></table>
+<h4 id="DRAM的刷新"><a href="#DRAM的刷新" class="headerlink" title="DRAM的刷新"></a>DRAM的刷新</h4><ul>
+<li><strong>刷新单位</strong>：行。</li>
+<li><strong>刷新周期</strong>：通常2ms。</li>
+<li><strong>刷新方式</strong>：<ul>
+<li><strong>集中刷新</strong>：固定时间刷新所有行，存在“死区”（访存死区）。</li>
+<li><strong>分散刷新</strong>：每个工作周期分两部分（读写+刷新），无死区，但存取周期延长。</li>
+<li><strong>异步刷新</strong>：结合两者，刷新周期内均匀刷新各行。</li>
+</ul>
+</li>
+</ul>
+<h4 id="DRAM地址引脚复用"><a href="#DRAM地址引脚复用" class="headerlink" title="DRAM地址引脚复用"></a>DRAM地址引脚复用</h4><ul>
+<li>行地址和列地址分两次通过相同引脚输入，减少引脚数。</li>
+</ul>
+<hr>
+<h3 id="3-2-2-只读存储器-ROM"><a href="#3-2-2-只读存储器-ROM" class="headerlink" title="3.2.2 只读存储器(ROM)"></a>3.2.2 只读存储器(ROM)</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MROM</strong></td>
+<td>掩模式，内容在芯片生产时写入，不可改</td>
+</tr>
+<tr>
+<td><strong>PROM</strong></td>
+<td>一次可编程，用户写入一次，不可改</td>
+</tr>
+<tr>
+<td><strong>EPROM</strong></td>
+<td>可擦除可编程，多次改写，但写入次数有限</td>
+</tr>
+<tr>
+<td><strong>Flash</strong></td>
+<td>可长期保存，快速擦除和重写</td>
+</tr>
+<tr>
+<td><strong>SSD</strong></td>
+<td>固态硬盘，由控制单元和Flash组成</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="3-2-3-主存储器的基本组成"><a href="#3-2-3-主存储器的基本组成" class="headerlink" title="3.2.3 主存储器的基本组成"></a>3.2.3 主存储器的基本组成</h3><ul>
+<li><strong>存储体</strong>：存储单元的集合。</li>
+<li><strong>地址译码</strong>：一维译码（字线多）、二维译码（行+列译码）。</li>
+<li><strong>片选控制信号</strong>：选中要访问的芯片。</li>
+<li><strong>读写控制信号</strong>：控制读&#x2F;写操作。</li>
+</ul>
+<p><strong>CPU访存过程</strong>：</p>
+<ol>
+<li>CPU将地址送MAR → 地址线 → 主存地址寄存器 → 地址译码。</li>
+<li>CPU将读写信号送控制线 → 主存读写控制电路。</li>
+<li>读操作：主存读出数据 → 数据线 → MDR。</li>
+<li>写操作：CPU将数据送MDR → 数据线 → 主存写入选中单元。</li>
+</ol>
+<hr>
+<h3 id="3-2-4-多模块存储器"><a href="#3-2-4-多模块存储器" class="headerlink" title="3.2.4 多模块存储器"></a>3.2.4 多模块存储器</h3><h4 id="1-连续编址方式"><a href="#1-连续编址方式" class="headerlink" title="1. 连续编址方式"></a>1. 连续编址方式</h4><ul>
+<li>高位为模块号，低位为模块内地址。</li>
+<li>模块内地址连续，模块间串行访问，不能提高吞吐率。</li>
+</ul>
+<h4 id="2-交叉编址方式"><a href="#2-交叉编址方式" class="headerlink" title="2. 交叉编址方式"></a>2. 交叉编址方式</h4><ul>
+<li>低位为模块号，高位为模块内地址。</li>
+<li>模块间交叉编址，可并行访问。</li>
+<li><strong>轮流启动</strong>：每隔 $1&#x2F;m$ 个存储周期启动一个模块，吞吐率提高 $m$ 倍。</li>
+<li><strong>同时启动</strong>：所有模块同时启动，一次提供 $m \times$ 字长数据。</li>
+</ul>
+<hr>
+<h2 id="3-3-主存储器和CPU的连接"><a href="#3-3-主存储器和CPU的连接" class="headerlink" title="3.3 主存储器和CPU的连接"></a>3.3 主存储器和CPU的连接</h2><h3 id="3-3-1-位扩展"><a href="#3-3-1-位扩展" class="headerlink" title="3.3.1 位扩展"></a>3.3.1 位扩展</h3><ul>
+<li><strong>目的</strong>：增加存储字长（位数）。</li>
+<li><strong>连接方式</strong>：地址线、读写控制线、片选线对应相连，数据线单独引出。</li>
+</ul>
+<h3 id="3-3-2-字扩展"><a href="#3-3-2-字扩展" class="headerlink" title="3.3.2 字扩展"></a>3.3.2 字扩展</h3><ul>
+<li><strong>目的</strong>：增加存储容量（字数）。</li>
+<li><strong>连接方式</strong>：地址线低位相连，片选信号由高位地址经译码器产生。</li>
+</ul>
+<h3 id="3-3-3-字位同时扩展"><a href="#3-3-3-字位同时扩展" class="headerlink" title="3.3.3 字位同时扩展"></a>3.3.3 字位同时扩展</h3><ul>
+<li><strong>目的</strong>：既扩展容量又扩展位数。</li>
+<li><strong>连接方式</strong>：位扩展的芯片作为一组，组内位扩展，组间字扩展。</li>
+</ul>
+<hr>
+<h2 id="3-4-外部存储器"><a href="#3-4-外部存储器" class="headerlink" title="3.4 外部存储器"></a>3.4 外部存储器</h2><h3 id="3-4-1-磁盘存储器"><a href="#3-4-1-磁盘存储器" class="headerlink" title="3.4.1 磁盘存储器"></a>3.4.1 磁盘存储器</h3><h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4><ul>
+<li><strong>磁盘驱动器</strong>：驱动磁盘转动，进行读写。</li>
+<li><strong>磁盘控制器</strong>：主机与磁盘驱动器的接口。</li>
+<li><strong>盘片</strong>：存储介质。</li>
+</ul>
+<h4 id="存储区域"><a href="#存储区域" class="headerlink" title="存储区域"></a>存储区域</h4><ul>
+<li><strong>记录面（磁头数）</strong>：盘片数量 × 2。</li>
+<li><strong>磁道</strong>：记录面上的同心圆。</li>
+<li><strong>柱面</strong>：不同记录面相同位置的磁道集合。</li>
+<li><strong>扇区（块）</strong>：磁盘读写的最小单位。</li>
+</ul>
+<h4 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h4><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>记录密度</strong></td>
+<td>道密度（径向单位长度磁道数）、位密度（磁道单位长度位数）</td>
+</tr>
+<tr>
+<td><strong>磁盘容量</strong></td>
+<td>格式化容量 &#x3D; 记录面数 × 柱面数 × 每道扇区数 × 扇区容量</td>
+</tr>
+<tr>
+<td><strong>存取时间</strong></td>
+<td>寻道时间 + 旋转延迟时间 + 传输时间（通常取平均值）</td>
+</tr>
+<tr>
+<td><strong>数据传输速率</strong></td>
+<td>单位时间传送的数据量</td>
+</tr>
+</tbody></table>
+<h4 id="RAID（独立冗余磁盘阵列）"><a href="#RAID（独立冗余磁盘阵列）" class="headerlink" title="RAID（独立冗余磁盘阵列）"></a>RAID（独立冗余磁盘阵列）</h4><table>
+<thead>
+<tr>
+<th>级别</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>RAID0</strong></td>
+<td>条带化，无冗余，提高速度，无容错</td>
+</tr>
+<tr>
+<td><strong>RAID1</strong></td>
+<td>镜像，容量减半，高可靠性</td>
+</tr>
+<tr>
+<td><strong>RAID5</strong></td>
+<td>奇偶校验，分布式校验块，兼顾性能与容错</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="3-4-2-固态硬盘-SSD"><a href="#3-4-2-固态硬盘-SSD" class="headerlink" title="3.4.2 固态硬盘(SSD)"></a>3.4.2 固态硬盘(SSD)</h3><ul>
+<li><strong>组成</strong>：闪存芯片 + 闪存翻译层（控制器）。</li>
+<li><strong>结构</strong>：块（Block）→ 页（Page），读写以页为单位。</li>
+<li><strong>写操作</strong>：若页非空，需将所在块有效页复制到新块，再写入，再擦除原块。</li>
+<li><strong>磨损均衡</strong>：动态磨损均衡（写时选较新块）、静态磨损均衡（分配老块存静态数据）。</li>
+</ul>
+<hr>
+<h2 id="3-5-高速缓冲存储器-Cache"><a href="#3-5-高速缓冲存储器-Cache" class="headerlink" title="3.5 高速缓冲存储器(Cache)"></a>3.5 高速缓冲存储器(Cache)</h2><h3 id="3-5-1-程序访问的局部性原理"><a href="#3-5-1-程序访问的局部性原理" class="headerlink" title="3.5.1 程序访问的局部性原理"></a>3.5.1 程序访问的局部性原理</h3><ul>
+<li><strong>时间局部性</strong>：当前使用的信息近期可能再次使用。</li>
+<li><strong>空间局部性</strong>：近期要用的信息与当前信息在空间上邻近。</li>
+</ul>
+<h3 id="3-5-2-Cache的基本工作原理"><a href="#3-5-2-Cache的基本工作原理" class="headerlink" title="3.5.2 Cache的基本工作原理"></a>3.5.2 Cache的基本工作原理</h3><ul>
+<li><strong>块长</strong>：Cache块（行）与主存块大小相等。</li>
+<li>**命中率(p)**：$p &#x3D; \frac{\text{命中次数}}{\text{总访问次数}}$。</li>
+<li><strong>平均访问时间</strong>：$T_a &#x3D; T_c + (1-p) \times T_m$（$T_c$：Cache访问时间，$T_m$：主存访问时间）。</li>
+</ul>
+<hr>
+<h3 id="3-5-3-Cache和主存的映射方式"><a href="#3-5-3-Cache和主存的映射方式" class="headerlink" title="3.5.3 Cache和主存的映射方式"></a>3.5.3 Cache和主存的映射方式</h3><h4 id="1-直接映射"><a href="#1-直接映射" class="headerlink" title="1. 直接映射"></a>1. 直接映射</h4><ul>
+<li><strong>映射关系</strong>：Cache行号 &#x3D; 主存块号 mod Cache行数。</li>
+<li><strong>主存地址格式</strong>：| 标记(t) | 行号(c) | 块内地址 |</li>
+<li><strong>特点</strong>：简单，但冲突率高，命中率低。</li>
+</ul>
+<h4 id="2-全相联映射"><a href="#2-全相联映射" class="headerlink" title="2. 全相联映射"></a>2. 全相联映射</h4><ul>
+<li><strong>映射关系</strong>：主存块可映射到任意Cache行。</li>
+<li><strong>主存地址格式</strong>：| 标记 | 块内地址 |</li>
+<li><strong>特点</strong>：冲突率低，命中率高，但硬件开销大（需比较器）。</li>
+</ul>
+<h4 id="3-组相联映射"><a href="#3-组相联映射" class="headerlink" title="3. 组相联映射"></a>3. 组相联映射</h4><ul>
+<li><strong>映射关系</strong>：组间直接映射，组内全相联映射。</li>
+<li><strong>主存地址格式</strong>：| 标记(t) | 组号(k) | 块内地址 |</li>
+<li><strong>特点</strong>：折中方案，$r$路组相联即每组$r$行。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>映射方式</th>
+<th>命中率</th>
+<th>硬件开销</th>
+<th>冲突率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>直接映射</td>
+<td>最低</td>
+<td>最小</td>
+<td>最高</td>
+</tr>
+<tr>
+<td>全相联映射</td>
+<td>最高</td>
+<td>最大</td>
+<td>最低</td>
+</tr>
+<tr>
+<td>组相联映射</td>
+<td>中等</td>
+<td>中等</td>
+<td>中等</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="3-5-4-Cache中主存块的替换算法"><a href="#3-5-4-Cache中主存块的替换算法" class="headerlink" title="3.5.4 Cache中主存块的替换算法"></a>3.5.4 Cache中主存块的替换算法</h3><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>随机算法</strong></td>
+<td>随机替换，无局部性依据</td>
+</tr>
+<tr>
+<td><strong>先进先出(FIFO)</strong></td>
+<td>替换最早调入的行，无局部性依据</td>
+</tr>
+<tr>
+<td><strong>最近最少使用(LRU)</strong></td>
+<td>替换最久未访问的行，利用局部性原理，命中率高</td>
+</tr>
+</tbody></table>
+<p><strong>LRU计数器规则</strong>（$2^k$路）：</p>
+<ul>
+<li>命中：被访问行计数器清零，比其低的加1，其余不变。</li>
+<li>未命中且有空间：新行计数器&#x3D;0，其余加1。</li>
+<li>未命中且无空间：淘汰计数值最大行，新行计数器&#x3D;0，其余加1。</li>
+</ul>
+<hr>
+<h3 id="3-5-5-Cache的一致性问题"><a href="#3-5-5-Cache的一致性问题" class="headerlink" title="3.5.5 Cache的一致性问题"></a>3.5.5 Cache的一致性问题</h3><h4 id="写命中时"><a href="#写命中时" class="headerlink" title="写命中时"></a>写命中时</h4><table>
+<thead>
+<tr>
+<th>策略</th>
+<th>做法</th>
+<th>优缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>全写法</strong></td>
+<td>同时写入Cache和主存</td>
+<td>实现简单，一致性好，但访存次数多</td>
+</tr>
+<tr>
+<td><strong>回写法</strong></td>
+<td>只写Cache，替换时写回主存</td>
+<td>访存次数少，需设脏位，存在不一致隐患</td>
+</tr>
+</tbody></table>
+<h4 id="写不命中时"><a href="#写不命中时" class="headerlink" title="写不命中时"></a>写不命中时</h4><table>
+<thead>
+<tr>
+<th>策略</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>写分配法</strong></td>
+<td>更新主存，将块调入Cache</td>
+</tr>
+<tr>
+<td><strong>非写分配法</strong></td>
+<td>只更新主存，不调入Cache</td>
+</tr>
+</tbody></table>
+<p><strong>典型组合</strong>：全写法 + 非写分配法；回写法 + 写分配法。</p>
+<hr>
+<h3 id="3-5-6-指令Cache和数据Cache分离"><a href="#3-5-6-指令Cache和数据Cache分离" class="headerlink" title="3.5.6 指令Cache和数据Cache分离"></a>3.5.6 指令Cache和数据Cache分离</h3><ul>
+<li><strong>优点</strong>：避免取指令与取数据的资源冲突，利用不同局部性优化性能。</li>
+</ul>
+<hr>
+<h3 id="3-5-7-Cache容量计算"><a href="#3-5-7-Cache容量计算" class="headerlink" title="3.5.7 Cache容量计算"></a>3.5.7 Cache容量计算</h3><ul>
+<li><strong>Cache容量 &#x3D; 数据区容量 + 标记区容量</strong></li>
+<li><strong>数据区容量</strong> &#x3D; 块大小 × 块数</li>
+<li><strong>标记区容量</strong> &#x3D; (标记 + 有效位 + 脏位 + 替换控制位) × 块数</li>
+<li><strong>标记位位数</strong>：<ul>
+<li>直接映射：$n - k - p$（$n$：地址位数，$k$：行号位数，$p$：块内地址位数）</li>
+<li>全相联映射：$n - p$</li>
+<li>组相联映射：$n - (k-r) - p$（$r$：组内行数指数）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="3-6-虚拟存储器"><a href="#3-6-虚拟存储器" class="headerlink" title="3.6 虚拟存储器"></a>3.6 虚拟存储器</h2><h3 id="3-6-1-基本概念"><a href="#3-6-1-基本概念" class="headerlink" title="3.6.1 基本概念"></a>3.6.1 基本概念</h3><ul>
+<li><strong>目的</strong>：将主存和辅存统一编址，形成大容量地址空间。</li>
+<li><strong>逻辑地址（虚地址）</strong>：用户编程使用的地址。</li>
+<li><strong>物理地址（实地址）</strong>：实际主存单元地址。</li>
+<li><strong>特点</strong>：用户看来拥有辅存的容量和主存的速度。</li>
+</ul>
+<hr>
+<h3 id="3-6-2-页式虚拟存储器"><a href="#3-6-2-页式虚拟存储器" class="headerlink" title="3.6.2 页式虚拟存储器"></a>3.6.2 页式虚拟存储器</h3><h4 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h4><ul>
+<li><strong>页表项字段</strong>：<ul>
+<li><strong>装入位（有效位）</strong>：页面是否在主存。</li>
+<li><strong>修改位（脏位）</strong>：页面是否被修改（回写用）。</li>
+<li><strong>使用位（替换控制位）</strong>：用于替换算法。</li>
+<li><strong>存放位置</strong>：物理页号（在主存时）或磁盘地址（不在主存时）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="地址转换"><a href="#地址转换" class="headerlink" title="地址转换"></a>地址转换</h4><ul>
+<li><strong>虚地址</strong>：| 虚页号 | 页内偏移 |</li>
+<li><strong>物理地址</strong>：| 物理页号 | 页内偏移 |</li>
+<li><strong>转换过程</strong>：页表基址寄存器 → 页表 → 虚页号索引 → 页表项 → 物理页号 + 页内偏移</li>
+</ul>
+<h4 id="快表-TLB"><a href="#快表-TLB" class="headerlink" title="快表(TLB)"></a>快表(TLB)</h4><ul>
+<li>将活跃的页表项复制到高速缓存（SRAM），采用全相联或组相联。</li>
+<li><strong>作用</strong>：减少访存次数，加快地址转换。</li>
+</ul>
+<h4 id="多级存储系统（TLB-Cache）的CPU访存过程"><a href="#多级存储系统（TLB-Cache）的CPU访存过程" class="headerlink" title="多级存储系统（TLB + Cache）的CPU访存过程"></a>多级存储系统（TLB + Cache）的CPU访存过程</h4><p><strong>TLB、Page、Cache三种缺失情况</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>TLB</th>
+<th>Page</th>
+<th>Cache</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>命中</td>
+<td>命中</td>
+<td>命中</td>
+<td>信息在Cache中</td>
+</tr>
+<tr>
+<td>2</td>
+<td>命中</td>
+<td>命中</td>
+<td>缺失</td>
+<td>信息在主存，不在Cache</td>
+</tr>
+<tr>
+<td>3</td>
+<td>缺失</td>
+<td>命中</td>
+<td>命中</td>
+<td>信息在主存和Cache中</td>
+</tr>
+<tr>
+<td>4</td>
+<td>缺失</td>
+<td>命中</td>
+<td>缺失</td>
+<td>信息在主存，需访存两次</td>
+</tr>
+<tr>
+<td>5</td>
+<td>缺失</td>
+<td>缺失</td>
+<td>缺失</td>
+<td>缺页，需访问磁盘</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="3-6-3-段式虚拟存储器"><a href="#3-6-3-段式虚拟存储器" class="headerlink" title="3.6.3 段式虚拟存储器"></a>3.6.3 段式虚拟存储器</h3><ul>
+<li><strong>段</strong>：按程序逻辑结构划分，长度可变。</li>
+<li><strong>虚地址</strong>：| 段号 | 段内地址 |</li>
+<li><strong>段表</strong>：记录段起点、段长、装入位等。</li>
+<li><strong>优点</strong>：逻辑独立，易于管理、保护。</li>
+<li><strong>缺点</strong>：段间碎片，空间浪费。</li>
+</ul>
+<hr>
+<h3 id="3-6-4-段页式虚拟存储器"><a href="#3-6-4-段页式虚拟存储器" class="headerlink" title="3.6.4 段页式虚拟存储器"></a>3.6.4 段页式虚拟存储器</h3><ul>
+<li>先按逻辑结构分段，每段再分页。</li>
+<li><strong>虚地址</strong>：| 段号 | 段内页号 | 页内地址 |</li>
+<li><strong>转换过程</strong>：段表 → 页表 → 物理页号 + 页内地址。</li>
+</ul>
+<hr>
+<h3 id="3-6-5-虚拟存储器与Cache的比较"><a href="#3-6-5-虚拟存储器与Cache的比较" class="headerlink" title="3.6.5 虚拟存储器与Cache的比较"></a>3.6.5 虚拟存储器与Cache的比较</h3><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>Cache</th>
+<th>虚拟存储器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>主要目的</strong></td>
+<td>解决速度问题</td>
+<td>解决容量问题</td>
+</tr>
+<tr>
+<td><strong>实现方式</strong></td>
+<td>硬件</td>
+<td>硬件 + OS</td>
+</tr>
+<tr>
+<td><strong>透明性</strong></td>
+<td>对所有程序员透明</td>
+<td>对应用程序员透明，对系统程序员不透明</td>
+</tr>
+<tr>
+<td><strong>缺失代价</strong></td>
+<td>访问主存</td>
+<td>访问磁盘（代价更大）</td>
+</tr>
+<tr>
+<td><strong>数据流</strong></td>
+<td>主存 → Cache → CPU</td>
+<td>磁盘 → 主存 → CPU</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="3-6-6-数据的对齐存储"><a href="#3-6-6-数据的对齐存储" class="headerlink" title="3.6.6 数据的对齐存储"></a>3.6.6 数据的对齐存储</h3><h4 id="边界对齐"><a href="#边界对齐" class="headerlink" title="边界对齐"></a>边界对齐</h4><ul>
+<li>要求存储地址是数据自身大小的整数倍。</li>
+<li><strong>优点</strong>：一次访存即可取出数据（空间换时间）。</li>
+</ul>
+<h4 id="结构体的边界对齐"><a href="#结构体的边界对齐" class="headerlink" title="结构体的边界对齐"></a>结构体的边界对齐</h4><ul>
+<li><strong>对齐规则</strong>：<ul>
+<li>每个成员按自身类型大小对齐（char:1, short:2, int:4）。</li>
+<li>结构体长度为最大成员对齐值的整数倍。</li>
+</ul>
+</li>
+</ul>
+<p><strong>示例（32位环境）</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> a;   <span class="comment">// 4字节</span></span><br><span class="line">    <span class="type">char</span> b;  <span class="comment">// 1字节</span></span><br><span class="line">    <span class="type">short</span> c; <span class="comment">// 2字节</span></span><br><span class="line">&#125;; <span class="comment">// sizeof(A) = 8</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">B</span> &#123;</span></span><br><span class="line">    <span class="type">char</span> b;  <span class="comment">// 1字节</span></span><br><span class="line">    <span class="type">int</span> a;   <span class="comment">// 4字节</span></span><br><span class="line">    <span class="type">short</span> c; <span class="comment">// 2字节</span></span><br><span class="line">&#125;; <span class="comment">// sizeof(B) = 12</span></span><br></pre></td></tr></table></figure>
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/06/21/CO/4%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F/">指令系统</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/06/19/CO/2%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%BF%90%E7%AE%97/">数据的表示和运算</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>Aki’s Digital Garden | <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">赣ICP备2025075264号-1</a> | <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/image/gongan.png" alt="公安备案图标" style="width:20px; height:20px; vertical-align:middle; margin-right:4px;"><a target="_blank" rel="noopener" href="https://beian.mps.gov.cn/#/query/webSearch">赣公网安备36020002000627号</a><br>Built with Stellar · CC BY-NC-SA 4.0 · Attribution required</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%AD%98%E5%82%A8%E5%99%A8%E6%A6%82%E8%BF%B0"><span class="toc-text">3.1 存储器概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">3.1.1 存储器的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%8C%89%E5%AD%98%E5%82%A8%E5%85%83%E4%BB%B6%E5%88%86%E7%B1%BB"><span class="toc-text">1. 按存储元件分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%8C%89%E5%AD%98%E5%8F%96%E6%96%B9%E5%BC%8F%E5%88%86%E7%B1%BB"><span class="toc-text">2. 按存取方式分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%8C%89%E4%BF%A1%E6%81%AF%E7%9A%84%E5%8F%AF%E6%9B%B4%E6%94%B9%E6%80%A7%E5%88%86%E7%B1%BB"><span class="toc-text">3. 按信息的可更改性分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%8C%89%E6%96%AD%E7%94%B5%E5%90%8E%E4%BF%A1%E6%81%AF%E7%9A%84%E5%8F%AF%E4%BF%9D%E5%AD%98%E6%80%A7%E5%88%86%E7%B1%BB"><span class="toc-text">4. 按断电后信息的可保存性分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%8C%89%E5%8A%9F%E8%83%BD%E5%88%86%E7%B1%BB"><span class="toc-text">5. 按功能分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-text">3.1.2 存储器的性能指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3-%E5%B1%82%E6%AC%A1%E5%8C%96%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-text">3.1.3 层次化存储器的基本结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E4%B8%BB%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">3.2 主存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-SRAM%E5%92%8CDRAM"><span class="toc-text">3.2.1 SRAM和DRAM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DRAM%E7%9A%84%E5%88%B7%E6%96%B0"><span class="toc-text">DRAM的刷新</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DRAM%E5%9C%B0%E5%9D%80%E5%BC%95%E8%84%9A%E5%A4%8D%E7%94%A8"><span class="toc-text">DRAM地址引脚复用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8-ROM"><span class="toc-text">3.2.2 只读存储器(ROM)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-%E4%B8%BB%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%84%E6%88%90"><span class="toc-text">3.2.3 主存储器的基本组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-4-%E5%A4%9A%E6%A8%A1%E5%9D%97%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">3.2.4 多模块存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%BF%9E%E7%BB%AD%E7%BC%96%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-text">1. 连续编址方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BA%A4%E5%8F%89%E7%BC%96%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-text">2. 交叉编址方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E4%B8%BB%E5%AD%98%E5%82%A8%E5%99%A8%E5%92%8CCPU%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="toc-text">3.3 主存储器和CPU的连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-1-%E4%BD%8D%E6%89%A9%E5%B1%95"><span class="toc-text">3.3.1 位扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-2-%E5%AD%97%E6%89%A9%E5%B1%95"><span class="toc-text">3.3.2 字扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-3-%E5%AD%97%E4%BD%8D%E5%90%8C%E6%97%B6%E6%89%A9%E5%B1%95"><span class="toc-text">3.3.3 字位同时扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E5%A4%96%E9%83%A8%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">3.4 外部存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-1-%E7%A3%81%E7%9B%98%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">3.4.1 磁盘存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E6%88%90"><span class="toc-text">组成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%8C%BA%E5%9F%9F"><span class="toc-text">存储区域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-text">性能指标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RAID%EF%BC%88%E7%8B%AC%E7%AB%8B%E5%86%97%E4%BD%99%E7%A3%81%E7%9B%98%E9%98%B5%E5%88%97%EF%BC%89"><span class="toc-text">RAID（独立冗余磁盘阵列）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-2-%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98-SSD"><span class="toc-text">3.4.2 固态硬盘(SSD)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-%E9%AB%98%E9%80%9F%E7%BC%93%E5%86%B2%E5%AD%98%E5%82%A8%E5%99%A8-Cache"><span class="toc-text">3.5 高速缓冲存储器(Cache)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-1-%E7%A8%8B%E5%BA%8F%E8%AE%BF%E9%97%AE%E7%9A%84%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86"><span class="toc-text">3.5.1 程序访问的局部性原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-2-Cache%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">3.5.2 Cache的基本工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-3-Cache%E5%92%8C%E4%B8%BB%E5%AD%98%E7%9A%84%E6%98%A0%E5%B0%84%E6%96%B9%E5%BC%8F"><span class="toc-text">3.5.3 Cache和主存的映射方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84"><span class="toc-text">1. 直接映射</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%85%A8%E7%9B%B8%E8%81%94%E6%98%A0%E5%B0%84"><span class="toc-text">2. 全相联映射</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%BB%84%E7%9B%B8%E8%81%94%E6%98%A0%E5%B0%84"><span class="toc-text">3. 组相联映射</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-4-Cache%E4%B8%AD%E4%B8%BB%E5%AD%98%E5%9D%97%E7%9A%84%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-text">3.5.4 Cache中主存块的替换算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-5-Cache%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">3.5.5 Cache的一致性问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99%E5%91%BD%E4%B8%AD%E6%97%B6"><span class="toc-text">写命中时</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99%E4%B8%8D%E5%91%BD%E4%B8%AD%E6%97%B6"><span class="toc-text">写不命中时</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-6-%E6%8C%87%E4%BB%A4Cache%E5%92%8C%E6%95%B0%E6%8D%AECache%E5%88%86%E7%A6%BB"><span class="toc-text">3.5.6 指令Cache和数据Cache分离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-7-Cache%E5%AE%B9%E9%87%8F%E8%AE%A1%E7%AE%97"><span class="toc-text">3.5.7 Cache容量计算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">3.6 虚拟存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">3.6.1 基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-2-%E9%A1%B5%E5%BC%8F%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">3.6.2 页式虚拟存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8"><span class="toc-text">页表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2"><span class="toc-text">地址转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E8%A1%A8-TLB"><span class="toc-text">快表(TLB)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%BA%A7%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%EF%BC%88TLB-Cache%EF%BC%89%E7%9A%84CPU%E8%AE%BF%E5%AD%98%E8%BF%87%E7%A8%8B"><span class="toc-text">多级存储系统（TLB + Cache）的CPU访存过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-3-%E6%AE%B5%E5%BC%8F%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">3.6.3 段式虚拟存储器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-4-%E6%AE%B5%E9%A1%B5%E5%BC%8F%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">3.6.4 段页式虚拟存储器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-5-%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8%E4%B8%8ECache%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">3.6.5 虚拟存储器与Cache的比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-6-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AF%B9%E9%BD%90%E5%AD%98%E5%82%A8"><span class="toc-text">3.6.6 数据的对齐存储</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%B9%E7%95%8C%E5%AF%B9%E9%BD%90"><span class="toc-text">边界对齐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E8%BE%B9%E7%95%8C%E5%AF%B9%E9%BD%90"><span class="toc-text">结构体的边界对齐</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function (response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function (data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function (error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+<!-- required -->
+<script src="/js/main.js?v=1.30.0" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
